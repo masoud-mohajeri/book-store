@@ -1,0 +1,71 @@
+<form [formGroup]="bookForm" (ngSubmit)="onSave()">
+  <ion-grid fixed>
+    <ion-row>
+      <!-- inputs -->
+      <ion-col size="12" sizeMd="9" offset="0">
+        <!-- name -->
+        <ion-item>
+          <ion-label position="fixed" slot="end"> : نام کتاب </ion-label>
+          <ion-input type="text" formControlName="name"></ion-input>
+        </ion-item>
+        <!-- price -->
+        <ion-item>
+          <ion-label position="fixed" slot="end"> : قیمت کتاب </ion-label>
+          <ion-input type="number" formControlName="price"></ion-input>
+        </ion-item>
+        <!-- inventory -->
+        <ion-item>
+          <ion-label position="fixed" slot="end"> : موجودی کتاب </ion-label>
+          <ion-input type="number" formControlName="inventory"></ion-input>
+        </ion-item>
+        <!-- isbn -->
+        <ion-item>
+          <ion-label position="fixed" slot="end"> : شابک کتاب </ion-label>
+          <ion-input type="text" formControlName="isbn"></ion-input>
+        </ion-item>
+        <!-- translator -->
+        <ion-item>
+          <ion-label position="fixed" slot="end"> : مترجم کتاب </ion-label>
+          <ion-input type="text" formControlName="translator"></ion-input>
+        </ion-item>
+        <!-- publisher -->
+        <ion-item>
+          <ion-label position="fixed" slot="end"> : ناشر </ion-label>
+          <ion-input type="text" formControlName="publisher"></ion-input>
+        </ion-item>
+        <!-- pubYear -->
+        <ion-item>
+          <ion-label position="fixed" slot="end"> : سال انتشار </ion-label>
+          <ion-input type="text" formControlName="pubYear"></ion-input>
+        </ion-item>
+        <!-- imageUrl -->
+        <ion-item>
+          <ion-label position="fixed" slot="end"> : عکس </ion-label>
+          <ion-input type="file" formControlName="imageUrl"></ion-input>
+        </ion-item>
+        <!-- gist -->
+        <ion-item>
+          <ion-label position="fixed" slot="end"> : خلاصه کتاب </ion-label>
+          <ion-textarea rows="6" formControlName="gist" style="direction: rtl">
+          </ion-textarea>
+        </ion-item>
+      </ion-col>
+      <!-- img -->
+      <ion-col size="4" sizeMd="3">
+        <ion-thumbnail style="width: 100%; height: auto">
+          <ion-img [src]="bookForm.value?.imageUrl"></ion-img>
+        </ion-thumbnail>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-button (click)="onClear()" color="danger" type="button">
+          پاک کردن
+        </ion-button>
+        <ion-button color="success" type="submit" [disabled]="bookForm.invalid">
+          ذخیره تغییرات
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</form>

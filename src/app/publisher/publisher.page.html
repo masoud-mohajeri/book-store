@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>publisher</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-segment value="books" #pubSegment (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="books">
+      <ion-label>کتاب ها</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="add-books">
+      <ion-label>اضافه کردن کتاب</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="orders">
+      <ion-label>سفارش ها </ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="about-pub">
+      <ion-label>درباره نشر </ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <section *ngIf="pageStatus==='books'">
+    <app-edit-book
+      *ngFor="let book of books;let i=index"
+      [book]="book"
+      [bookId]="i"
+    >
+    </app-edit-book>
+  </section>
+  <section *ngIf="pageStatus==='add-books'">
+    <app-add-book></app-add-book>
+  </section>
+  <section *ngIf="pageStatus==='about-pub'">
+    <p>about pub</p>
+  </section>
+  <section *ngIf="pageStatus==='orders'">
+    <p>orders</p>
+  </section>
+</ion-content>

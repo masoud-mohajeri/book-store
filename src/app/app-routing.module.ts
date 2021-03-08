@@ -11,6 +11,30 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then( m => m.AuthPageModule)
+  },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule)
+  },
+  {
+    path: 'publisher',
+    loadChildren: () => import('./publisher/publisher.module').then( m => m.PublisherPageModule)
+  },
+  {
+    path: 'customer',
+    loadChildren: () => import('./customer/customer.module').then( m => m.CustomerPageModule)
+  },
+  {
+    path: 'products-buy',
+    loadChildren: () => import('./products-buy/products-buy.module').then( m => m.ProductsBuyPageModule)
+  },
+  {
+    path: 'shopping-card-and-purchase',
+    loadChildren: () => import('./shopping-card-and-purchase/shopping-card-and-purchase.module').then( m => m.ShoppingCardAndPurchasePageModule)
+  },
 ];
 
 @NgModule({

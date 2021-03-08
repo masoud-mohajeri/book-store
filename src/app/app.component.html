@@ -1,3 +1,37 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <!-- Menu 1  -->
+  <ion-menu side="end" menuId="home" contentId="main">
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title>Start Menu</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <ion-list>
+        <ion-menu-toggle>
+          <ion-item [routerLink]="['/publisher']" lines="none">
+            <ion-icon name="book" mode="md"></ion-icon>
+            <ion-label>Products</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle>
+          <ion-item [routerLink]="['/publisher']" lines="none">
+            <ion-icon name="card"></ion-icon>
+            <ion-label>Shopping Card</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+
+        <ion-menu-toggle>
+          <ion-item [routerLink]="['/publisher']" lines="none">
+            <ion-icon name="person-circle"></ion-icon>
+            <ion-label>Admin Area</ion-label>
+          </ion-item>
+        </ion-menu-toggle>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+
+  <ion-router-outlet id="main"></ion-router-outlet>
 </ion-app>

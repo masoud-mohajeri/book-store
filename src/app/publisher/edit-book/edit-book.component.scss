@@ -1,0 +1,9 @@
+ion-input {
+  direction: rtl;
+}
+body {
+  --ion-grid-padding: 0;
+  ion-col{
+    margin: 0;
+  }
+}
