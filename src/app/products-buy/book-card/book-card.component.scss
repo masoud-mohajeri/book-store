@@ -1,0 +1,22 @@
+ion-card {
+  max-width: 240px;
+  height: 510px;
+  direction: rtl;
+  overflow: show;
+  font-size: 64%;
+  display: inline-block;
+  ion-img {
+    box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.1);
+    height: 320px;
+    object-fit: cover;
+    margin: auto;
+  }
+
+  ion-button {
+    font-size: 75%;
+  }
+  ion-card-title{
+    font-size: 1rem;
+    
+  }
+}
