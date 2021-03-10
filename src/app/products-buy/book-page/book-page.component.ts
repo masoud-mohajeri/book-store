@@ -20,4 +20,7 @@ export class BookPageComponent implements OnInit {
     let id = this.route.snapshot.params['id'];
     this.book = this.bookService.returnBookById(+id);
   }
+  addToCard() {
+    console.log(this.book);
+  }
 }

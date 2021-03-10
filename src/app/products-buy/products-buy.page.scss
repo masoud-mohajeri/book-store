@@ -1,10 +1,14 @@
-.book-container{
+.book-container {
   display: flex;
   align-items: center;
   justify-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  app-book-card{
+  app-book-card {
+    justify-self: center;
+    align-self: center;
+  }
+  ion-virtual-scroll{
     justify-self: center;
     align-self: center;
   }

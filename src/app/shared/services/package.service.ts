@@ -1,0 +1,84 @@
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { Package } from '../package.model';
+import { BookService } from './books.service';
+
+@Injectable({ providedIn: 'root' })
+export class PackagesService {
+  packages: Package[] = [
+    {
+      packageId: 1,
+      name: 'خاطرات کودکی ',
+      price: 2222000,
+      imageUrl: '../../../assets/books/alice-in-wondeland.png',
+      bookIdArray: [1, 2, 3],
+    },
+    {
+      packageId: 2,
+      name: 'خاطرات کودکی ',
+      price: 2222000,
+      imageUrl: '../../../assets/books/alice-in-wondeland.png',
+      bookIdArray: [1, 2, 3],
+    },
+    {
+      packageId: 3,
+      name: 'خاطرات کودکی ',
+      price: 2222000,
+      imageUrl: '../../../assets/books/alice-in-wondeland.png',
+      bookIdArray: [1, 2, 3],
+    },
+    {
+      packageId: 4,
+      name: 'خاطرات کودکی ',
+      price: 2222000,
+      imageUrl: '../../../assets/books/alice-in-wondeland.png',
+      bookIdArray: [1, 2, 3],
+    },
+    {
+      packageId: 5,
+      name: 'خاطرات کودکی ',
+      price: 2222000,
+      imageUrl: '../../../assets/books/alice-in-wondeland.png',
+      bookIdArray: [1, 2, 3],
+    },
+    {
+      packageId: 6,
+      name: 'خاطرات کودکی ',
+      price: 2222000,
+      imageUrl: '../../../assets/books/alice-in-wondeland.png',
+      bookIdArray: [1, 2, 3],
+    },
+    {
+      packageId: 7,
+      name: 'خاطرات کودکی ',
+      price: 2222000,
+      imageUrl: '../../../assets/books/alice-in-wondeland.png',
+      bookIdArray: [1, 2, 3],
+    },
+    {
+      packageId: 8,
+      name: 'خاطرات کودکی ',
+      price: 2222000,
+      imageUrl: '../../../assets/books/alice-in-wondeland.png',
+      bookIdArray: [1, 2, 3],
+    },
+    {
+      packageId: 9,
+      name: 'خاطرات کودکی ',
+      price: 2222000,
+      imageUrl: '../../../assets/books/alice-in-wondeland.png',
+      bookIdArray: [1, 2, 3],
+    },
+  ];
+  packageEmitter = new BehaviorSubject<Package[]>(null);
+  constructor(private bookService: BookService) {}
+
+  getAllPackages() {
+    this.packageEmitter.next(this.packages);
+    return this.packageEmitter;
+  }
+
+  returnPackageById(id: number) {
+    return this.packages.find((pack) => pack.packageId === id);
+  }
+}

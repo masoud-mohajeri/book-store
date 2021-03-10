@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BookPageComponent } from './book-page/book-page.component';
+import { PackagePageComponent } from './package-page/package-page.component';
 
 import { ProductsBuyPage } from './products-buy.page';
 
@@ -10,8 +11,12 @@ const routes: Routes = [
     component: ProductsBuyPage,
   },
   {
-    path: ':id',
+    path: 'book/:id',
     component: BookPageComponent,
+  },
+  {
+    path: 'package/:pid',
+    component: PackagePageComponent,
   },
 ];
 

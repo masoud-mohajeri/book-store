@@ -5,11 +5,31 @@
 </ion-header>
 
 <ion-content>
+  <section id="slides">
+    <ion-slides mode="ios" pager="ios" [options]="slideOpts">
+      <ion-slide *ngFor="let package of packages;let i =index">
+        <app-package-card [package]="package"></app-package-card>
+      </ion-slide>
+    </ion-slides>
+  </section>
   <section class="book-container ion-justify-content-center">
-    <app-book-card
+    <!-- <app-book-card
       *ngFor="let book of books;let i =index"
       [book]="book"
       [index]="i"
-    ></app-book-card>
+    ></app-book-card> -->
+    <ion-virtual-scroll
+      [items]="books"
+      class="book-container ion-justify-content-center"
+      style="display: flex"
+    >
+      <div
+        *virtualItem="let item; let itemBounds = bounds;"
+        class="book-container ion-justify-content-center"
+      >
+        <app-book-card style="display: inline-flex" [book]="item">
+        </app-book-card>
+      </div>
+    </ion-virtual-scroll>
   </section>
 </ion-content>

@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>package page</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+<app-book-card
+*ngFor="let book of booksInPack"
+[book]="book"
+></app-book-card>
+
+</ion-content>

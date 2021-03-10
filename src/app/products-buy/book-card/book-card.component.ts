@@ -14,6 +14,6 @@ export class BookCardComponent implements OnInit {
 
   ngOnInit() {}
   goToBook() {
-    this.router.navigate([this.book.id], { relativeTo: this.route });
+    this.router.navigate(['/products-buy','book', this.book.id]);
   }
 }
