@@ -1,0 +1,15 @@
+<ion-item>
+  <ion-list lines="none">
+    <ion-item
+      *ngFor="let book of books"
+      style="display: inline-block; direction: rtl"
+    >
+      <ion-chip color="dark">
+        <ion-avatar>
+          <img [src]="book.imageUrl" />
+        </ion-avatar>
+        <ion-label>{{ book.name }}</ion-label>
+      </ion-chip>
+    </ion-item>
+  </ion-list>
+</ion-item>

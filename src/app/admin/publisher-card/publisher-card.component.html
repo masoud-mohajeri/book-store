@@ -1,0 +1,114 @@
+<ion-item>
+  <ion-thumbnail slot="end" *ngIf="!expanded">
+    <ion-img [src]="publisher.imageUrl"></ion-img>
+  </ion-thumbnail>
+
+  <ion-label style="direction: rtl">
+    <section *ngIf="!expanded">
+      <h2>
+        نشر {{ publisher.name }}
+        <ion-icon
+          *ngIf="publisher.activatedStatus"
+          name="cloud-done"
+          color="success"
+          style="font-size: 1.5rem"
+        ></ion-icon>
+        <ion-icon
+          *ngIf="!publisher.activatedStatus"
+          name="cloud-offline"
+          color="danger"
+          style="font-size: 1.5rem"
+        ></ion-icon>
+      </h2>
+
+      <ion-button (click)="expandCollaps()" color="tertiary" fill="solid">
+        نمایش جزئیات
+      </ion-button>
+    </section>
+    <section *ngIf="expanded">
+      <h1>
+        نشر {{ publisher.name }}
+
+        <ion-icon
+          *ngIf="publisher.activatedStatus"
+          name="cloud-done"
+          color="success"
+          style="font-size: 1.8rem"
+        ></ion-icon>
+        <ion-icon
+          *ngIf="!publisher.activatedStatus"
+          name="cloud-offline"
+          color="danger"
+          style="font-size: 1.8rem"
+        ></ion-icon>
+      </h1>
+
+      <ion-button (click)="expandCollaps()" color="tertiary" fill="solid">
+        عدم نمایش جزئیات
+      </ion-button>
+      <ion-button
+        *ngIf="!publisher.activatedStatus"
+        (click)="changePublisherStatus()"
+        color="success"
+        fill="outline"
+        shape="round"
+      >
+        فعال کردن
+      </ion-button>
+      <ion-button
+        *ngIf="publisher.activatedStatus"
+        (click)="changePublisherStatus()"
+        color="danger"
+        fill="outline"
+        shape="round"
+      >
+        مسدود کردن
+      </ion-button>
+
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="12" sizeMd="10" offsetMd="1" offset="0">
+            <ion-list lines="none" inset="true">
+              <ion-header>
+                <ion-toolbar>
+                  <ion-title>کتاب های نشر</ion-title>
+                </ion-toolbar>
+              </ion-header>
+              <ion-item
+                *ngFor="
+                  let book of books
+                    | paginate: { itemsPerPage: 5, currentPage: paginationP }
+                "
+              >
+                <ion-avatar slot="start">
+                  <ion-img [src]="book.imageUrl"></ion-img>
+                </ion-avatar>
+                <ion-label style="direction: rtl">{{ book.name }}</ion-label>
+              </ion-item>
+              <div style="display: flex; justify-content: center">
+                <pagination-controls
+                  (pageChange)="paginationP = $event"
+                  previousLabel=" "
+                  nextLabel=" "
+                  [autoHide]="true"
+                  [responsive]="true"
+                >
+                </pagination-controls>
+              </div>
+            </ion-list>
+            <ion-header>
+              <ion-toolbar>
+                <ion-title>آدرس </ion-title>
+              </ion-toolbar>
+            </ion-header>
+            <ion-item>
+              <ion-label class="ion-text-wrap">
+                {{ publisher.address }}
+              </ion-label>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </section>
+  </ion-label>
+</ion-item>

@@ -19,6 +19,7 @@ export class ProductsBuyPage implements OnInit, OnDestroy {
     speed: 400,
   };
   packages: Package[];
+  paginationP = 1 ;
   constructor(
     private bookService: BookService,
     private packagesService: PackagesService

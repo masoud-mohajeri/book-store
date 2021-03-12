@@ -1,0 +1,80 @@
+<ion-grid fixed>
+  <ion-row>
+    <ion-col sizeMd="5" size="12" offsetMd="3">
+      <form [formGroup]="packageForm">
+        <ion-item>
+          <ion-label position="fixed" slot="end"> : شناسه </ion-label>
+          <ion-input type="text" formControlName="packageId"> </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="fixed" slot="end"> : نام </ion-label>
+          <ion-input type="text" formControlName="name"> </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="fixed" slot="end"> : عکس </ion-label>
+          <ion-input type="file" formControlName="imageurl"> </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label slot="end">کتاب ها</ion-label>
+          <ion-select   formControlName="books" multiple="true" cancelText="Nah" okText="Okay!">
+            <ion-select-option 
+            
+            *ngFor="let book of allBooks" [value]="book.id"
+              >
+              {{ book.name }}-{{ book.publisher }}
+              
+              </ion-select-option
+            >
+          </ion-select>
+        </ion-item>
+        <ion-button (click)="onClick()" fill="solid" color="warning" type="button">
+          پاک کردن
+        </ion-button>
+        <ion-button (click)="onClick()" fill="solid" color="success" type="button">
+          اضافه کردن
+        </ion-button>
+        <ion-button (click)="onClick()" fill="solid" color="danger" type="button"> 
+          حذف کردن
+        </ion-button>
+      </form>
+    </ion-col>
+    <ion-col sizeMd="2" size="6" offset="3" offsetMd="0">
+      <ion-img
+        src="../../../assets/books/alice-in-wondeland.png"
+        alt="image !!!!!!!!!!"
+      ></ion-img>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col sizeMd="6" size="12" offsetMd="3">
+      <ion-list style="direction: rtl">
+        <section
+          *ngFor="
+            let pack of packages
+              | paginate: { itemsPerPage: 5, currentPage: paginationP }
+          "
+        >
+          <ion-button
+            (click)="editPack(pack.packageId)"
+            fill="outline"
+            expand="block"
+            color="medium"
+          >
+            ویرایش {{ pack.name }} 👇
+          </ion-button>
+          <app-offer-item [package]="pack"></app-offer-item>
+        </section>
+      </ion-list>
+      <div style="display: flex; justify-content: center">
+        <pagination-controls
+          (pageChange)="paginationP = $event"
+          previousLabel=" "
+          nextLabel=" "
+          [autoHide]="true"
+          [responsive]="true"
+        >
+        </pagination-controls>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>
