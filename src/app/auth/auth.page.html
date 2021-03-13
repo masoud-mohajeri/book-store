@@ -1,9 +1,107 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>auth</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div id="html">
+    <div id="body" style="background-image: url('../../assets/tree.jpg')">
+      <div class="container">
+        <div class="modal">
+          <ion-segment
+            (ionChange)="segmentChanged($event)"
+            value="login"
+            color="tertiary"
+            mode="md"
+          >
+            <ion-segment-button value="login">
+              <ion-label>ورود</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="signup">
+              <ion-label>ثبت نام</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+          <section *ngIf="formStatus==='login'">
+            <form [formGroup]="loginForm" (ngSubmit)="onClick()">
+              <ion-item>
+                <ion-label position="fixed" style="direction: rtl" slot="end">
+                  ایمیل :</ion-label
+                >
+                <ion-input type="email" formControlName="email"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="fixed" slot="end" style="direction: rtl"
+                  >رمز عبور :</ion-label
+                >
+                <ion-input
+                  type="password"
+                  formControlName="password"
+                ></ion-input>
+              </ion-item>
+              <ion-button
+                type="submit"
+                (click)="onClick()"
+                expand="block"
+                fill="clear"
+                color="tertiary"
+              >
+                ورود
+              </ion-button>
+            </form>
+          </section>
+          <section *ngIf="formStatus==='signup'">
+            <form [formGroup]="signupForm" (ngSubmit)="onClick()">
+              <ion-item>
+                <ion-label position="fixed" style="direction: rtl" slot="end"
+                  >نام کامل :
+                </ion-label>
+                <ion-input type="text" formControlName="name"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="fixed" style="direction: rtl" slot="end"
+                  >ایمیل :</ion-label
+                >
+                <ion-input type="text" formControlName="email"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="fixed" style="direction: rtl" slot="end">
+                  رمز عبور :</ion-label
+                >
+                <ion-input type="text" formControlName="password1"></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="fixed" style="direction: rtl" slot="end">
+                  تکرار رمز عبور :
+                </ion-label>
+                <ion-input type="text" formControlName="password2"> </ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="fixed" style="direction: rtl" slot="end">
+                  وضعیت 
+                </ion-label>
+                <ion-select  mode="ios">
+                  <ion-select-option value="CUSTOMER">مشتری</ion-select-option>
+                  <ion-select-option value="PUBLISHER">ناشر</ion-select-option>
+                  <ion-select-option value="ADMIN">ادمین</ion-select-option>
+                </ion-select>
+              </ion-item>
+              <ion-button
+                type="submit"
+                (click)="onClick()"
+                expand="block"
+                fill="clear"
+                shape="round"
+              >
+                Click me
+              </ion-button>
+            </form>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>

@@ -15,7 +15,7 @@ export class ProductsBuyPage implements OnInit, OnDestroy {
   subs: Subscription[] = [];
   slideOpts = {
     initialSlide: 1,
-    slidesPerView: Math.round(window.innerWidth / 285),
+    slidesPerView: Math.round(window.innerWidth / 275),
     speed: 400,
   };
   packages: Package[];

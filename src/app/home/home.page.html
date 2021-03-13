@@ -10,25 +10,34 @@
 <ion-content>
   <ion-tabs fxHide.gt-sm class="ion-hide-lg">
     <ion-tab-bar slot="buttom">
-      <ion-tab-button tab="schedule">
-        <ion-icon name="calendar"></ion-icon>
-        <ion-label>Schedule</ion-label>
-        <ion-badge>6</ion-badge>
+
+      <ion-tab-button [routerLink]="['/login']" >
+        <ion-icon name="login"></ion-icon>
+        <ion-label>ورود</ion-label>
+      </ion-tab-button>
+      
+      <ion-tab-button [routerLink]="['/login']">
+        <ion-icon name="information-circle"></ion-icon>
+        <ion-label>پنل کاربری</ion-label>
+      </ion-tab-button>
+      <ion-tab-button [routerLink]="['/admin']">
+        <ion-icon name="information-circle"></ion-icon>
+        <ion-label>پنل ادمین</ion-label>
+      </ion-tab-button>
+      <ion-tab-button [routerLink]="['/publisher']">
+        <ion-icon name="information-circle"></ion-icon>
+        <ion-label>پنل ناشر</ion-label>
       </ion-tab-button>
 
       <ion-tab-button [routerLink]="['/publisher']">
         <ion-icon name="person-circle"></ion-icon>
-        <ion-label>publisher</ion-label>
+        <ion-label>سبد خرید</ion-label>
+        <ion-badge>6</ion-badge>
       </ion-tab-button>
 
-      <ion-tab-button tab="map">
+      <ion-tab-button [routerLink]="['/products-buy']">
         <ion-icon name="map"></ion-icon>
-        <ion-label>Map</ion-label>
-      </ion-tab-button>
-
-      <ion-tab-button tab="about">
-        <ion-icon name="information-circle"></ion-icon>
-        <ion-label>About</ion-label>
+        <ion-label>محصولات</ion-label>
       </ion-tab-button>
     </ion-tab-bar>
   </ion-tabs>

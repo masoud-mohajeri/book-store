@@ -14,7 +14,7 @@
   </section>
   <section class="book-container ion-justify-content-center">
     <app-book-card
-      *ngFor="let book of books | paginate: { itemsPerPage: 3, currentPage: paginationP }"
+      *ngFor="let book of books | paginate: { itemsPerPage: 24, currentPage: paginationP }"
       [book]="book"
     ></app-book-card>
   </section>

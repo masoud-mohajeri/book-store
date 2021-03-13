@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { BookPackagesComponent } from 'src/app/products-buy/book-packages/book-packages.component';
 import { Book } from 'src/app/shared/book.model';
@@ -37,24 +37,52 @@ export class OffersComponent implements OnInit, OnDestroy {
     this.nextPackageId = this.packages.length + 1;
 
     this.packageForm = new FormGroup({
-      packageId: new FormControl(this.nextPackageId),
-      name: new FormControl(this.onEditPackage?.name),
-      imageurl: new FormControl(this.onEditPackage?.imageUrl),
-      books: new FormControl(this.onEditPackage?.bookIdArray),
+      packageId: new FormControl(this.nextPackageId, Validators.required),
+      name: new FormControl(this.onEditPackage?.name, Validators.required),
+      imageUrl: new FormControl(
+        this.onEditPackage?.imageUrl,
+        Validators.required
+      ),
+      bookIdArray: new FormControl(
+        this.onEditPackage?.bookIdArray,
+        Validators.required
+      ),
     });
-  }
-  onClick() {
-    console.log(this.packageForm.value);
-    console.log('this.editMode', this.editMode);
-    console.log('this.onEditPackage', this.onEditPackage);
   }
 
   editPack(pid: number) {
     this.editMode = true;
     this.onEditPackage = this.packagesService.returnPackageById(pid);
-    this.nextPackageId = this.onEditPackage.packageId;
-    console.log('this.onEditPackage', this.onEditPackage);
-    console.log('this.nextPackageId', this.nextPackageId);
+    this.packageForm.setValue({
+      packageId: this.onEditPackage.packageId,
+      name: this.onEditPackage.name,
+      imageUrl: this.onEditPackage.imageUrl,
+      bookIdArray: this.onEditPackage.bookIdArray,
+    });
+  }
+
+  onClearButton() {
+    this.packageForm.reset();
+    this.packageForm.patchValue({
+      packageId: this.packages.length + 1,
+    });
+    this.editMode = false;
+    this.onEditPackage = null;
+  }
+
+  onDeleteButton() {
+    this.packagesService.deletePackage(this.onEditPackage.packageId);
+    this.onClearButton();
+  }
+
+  onAddButton() {
+    this.packagesService.addPackage(this.packageForm.value);
+    this.onClearButton();
+  }
+
+  onUpdateButton() {
+    this.packagesService.updatePackage(this.packageForm.value);
+    this.onClearButton();
   }
 
   ngOnDestroy() {

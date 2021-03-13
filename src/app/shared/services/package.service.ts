@@ -72,4 +72,24 @@ export class PackagesService {
   returnPackageById(id: number) {
     return this.packages.find((pack) => pack.packageId === id);
   }
+
+  updatePackage(thePackage: Package): void {
+    const theId = this.packages.findIndex(
+      (pack) => pack.packageId === thePackage.packageId
+    );
+    this.packages[theId] = thePackage;
+    this.packageEmitter.next(this.packages);
+  }
+
+  addPackage(thePackage: Package): void {
+    this.packages.push(thePackage);
+    this.packageEmitter.next(this.packages);
+  }
+
+  deletePackage(id: number): void {
+    const theId = this.packages.findIndex((pack) => pack.packageId === id);
+    this.packages.splice(theId, 1);
+    this.packageEmitter.next(this.packages);
+    console.log('delete!');
+  }
 }

@@ -1,48 +1,83 @@
 <ion-grid fixed>
   <ion-row>
     <ion-col sizeMd="5" size="12" offsetMd="3">
-      <form [formGroup]="packageForm">
+      <form [formGroup]="packageForm" #pform>
         <ion-item>
           <ion-label position="fixed" slot="end"> : شناسه </ion-label>
-          <ion-input type="text" formControlName="packageId"> </ion-input>
+          <ion-input
+            style="direction: rtl"
+            type="text"
+            formControlName="packageId"
+            readonly
+          >
+          </ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="fixed" slot="end"> : نام </ion-label>
-          <ion-input type="text" formControlName="name"> </ion-input>
+          <ion-input style="direction: rtl" type="text" formControlName="name">
+          </ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="fixed" slot="end"> : عکس </ion-label>
-          <ion-input type="file" formControlName="imageurl"> </ion-input>
+          <ion-input
+            style="direction: rtl"
+            type="file"
+            formControlName="imageUrl"
+          >
+          </ion-input>
         </ion-item>
         <ion-item>
           <ion-label slot="end">کتاب ها</ion-label>
-          <ion-select   formControlName="books" multiple="true" cancelText="Nah" okText="Okay!">
-            <ion-select-option 
-            
-            *ngFor="let book of allBooks" [value]="book.id"
-              >
+          <ion-select
+            style="direction: rtl"
+            formControlName="bookIdArray"
+            multiple="true"
+            okText="Okay!"
+          >
+            <ion-select-option *ngFor="let book of allBooks" [value]="book.id">
               {{ book.name }}-{{ book.publisher }}
-              
-              </ion-select-option
-            >
+            </ion-select-option>
           </ion-select>
         </ion-item>
-        <ion-button (click)="onClick()" fill="solid" color="warning" type="button">
+        <ion-button
+          (click)="onClearButton()"
+          fill="solid"
+          color="warning"
+          type="button"
+        >
           پاک کردن
         </ion-button>
-        <ion-button (click)="onClick()" fill="solid" color="success" type="button">
+        <ion-button
+          *ngIf="!editMode"
+          (click)="onAddButton()"
+          fill="solid"
+          color="success"
+          type="button"
+        >
           اضافه کردن
         </ion-button>
-        <ion-button (click)="onClick()" fill="solid" color="danger" type="button"> 
+        <ion-button
+          *ngIf="editMode"
+          (click)="onUpdateButton()"
+          fill="solid"
+          color="success"
+          type="button"
+        >
+          آپدیت کردن
+        </ion-button>
+        <ion-button
+          *ngIf="editMode"
+          (click)="onDeleteButton()"
+          fill="solid"
+          color="danger"
+          type="button"
+        >
           حذف کردن
         </ion-button>
       </form>
     </ion-col>
     <ion-col sizeMd="2" size="6" offset="3" offsetMd="0">
-      <ion-img
-        src="../../../assets/books/alice-in-wondeland.png"
-        alt="image !!!!!!!!!!"
-      ></ion-img>
+      <ion-img [src]="onEditPackage?.imageUrl" alt="image !!!!!!!!!!"></ion-img>
     </ion-col>
   </ion-row>
   <ion-row>

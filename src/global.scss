@@ -27,9 +27,12 @@
 
 // font
 @import url("https://v1.fontapi.ir/css/Tanha");
-@import url('https://v1.fontapi.ir/css/Vazir');
-@import url('https://v1.fontapi.ir/css/Nahid');
+@import url("https://v1.fontapi.ir/css/Vazir");
+@import url("https://v1.fontapi.ir/css/Nahid");
 :root {
-  --ion-font-family:  'Vazir', sans-serif;
+  --ion-font-family: "Vazir", sans-serif;
   // --ion-font-family:  'Nahid', sans-serif;
+  ion-menu {
+    --max-width: 300px;
+  }
 }
