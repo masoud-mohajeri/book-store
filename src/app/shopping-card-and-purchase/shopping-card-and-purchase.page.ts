@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Order } from '../shared/order.model';
+import { OrderPaymentService } from '../shared/services/orderPayment.service';
 
 @Component({
   selector: 'app-shopping-card-and-purchase',
@@ -6,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./shopping-card-and-purchase.page.scss'],
 })
 export class ShoppingCardAndPurchasePage implements OnInit {
-
-  constructor() { }
+  orders: Order[];
+  constructor(private orderPayService: OrderPaymentService) {}
 
   ngOnInit() {
+    this.orderPayService.orderEmitter.subscribe((orders) => {
+      this.orders = orders;
+    });
   }
-
 }

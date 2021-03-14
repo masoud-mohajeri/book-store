@@ -1,9 +1,30 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="home"></ion-back-button>
+    </ion-buttons>
     <ion-title>shopping-card-and-purchase</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col style="direction: rtl" size="12">
+        <h2>سفارش ها</h2>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <section *ngIf="orders.length!=0">
+          <section *ngFor="let order of orders">
+            <app-item-card [order]="order"></app-item-card>
+          </section>
+        </section>
+        <section *ngIf="orders.length==0">
+          <h2>سبد خرید شما خالی است !</h2>
+        </section>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

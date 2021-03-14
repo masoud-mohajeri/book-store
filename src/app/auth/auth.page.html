@@ -26,7 +26,7 @@
             </ion-segment-button>
           </ion-segment>
           <section *ngIf="formStatus==='login'">
-            <form [formGroup]="loginForm" (ngSubmit)="onClick()">
+            <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
               <ion-item>
                 <ion-label position="fixed" style="direction: rtl" slot="end">
                   ایمیل :</ion-label
@@ -44,7 +44,7 @@
               </ion-item>
               <ion-button
                 type="submit"
-                (click)="onClick()"
+                (click)="onLogin()"
                 expand="block"
                 fill="clear"
                 color="tertiary"
@@ -54,7 +54,7 @@
             </form>
           </section>
           <section *ngIf="formStatus==='signup'">
-            <form [formGroup]="signupForm" (ngSubmit)="onClick()">
+            <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
               <ion-item>
                 <ion-label position="fixed" style="direction: rtl" slot="end"
                   >نام کامل :
@@ -74,16 +74,23 @@
                 <ion-input type="text" formControlName="password1"></ion-input>
               </ion-item>
               <ion-item>
+                <ion-item>
+                  <ion-label position="fixed" style="direction: rtl" slot="end">
+                    تکرار رمز عبور :
+                  </ion-label>
+                  <ion-input type="text" formControlName="password2">
+                  </ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-label position="fixed" style="direction: rtl" slot="end">
+                    آدرس
+                  </ion-label>
+                  <ion-input type="text" formControlName="address"> </ion-input>
+                </ion-item>
                 <ion-label position="fixed" style="direction: rtl" slot="end">
-                  تکرار رمز عبور :
+                  وضعیت
                 </ion-label>
-                <ion-input type="text" formControlName="password2"> </ion-input>
-              </ion-item>
-              <ion-item>
-                <ion-label position="fixed" style="direction: rtl" slot="end">
-                  وضعیت 
-                </ion-label>
-                <ion-select  mode="ios">
+                <ion-select mode="ios">
                   <ion-select-option value="CUSTOMER">مشتری</ion-select-option>
                   <ion-select-option value="PUBLISHER">ناشر</ion-select-option>
                   <ion-select-option value="ADMIN">ادمین</ion-select-option>
@@ -91,12 +98,12 @@
               </ion-item>
               <ion-button
                 type="submit"
-                (click)="onClick()"
+                (click)="onSignup()"
                 expand="block"
                 fill="clear"
                 shape="round"
               >
-                Click me
+                ثبت نام
               </ion-button>
             </form>
           </section>

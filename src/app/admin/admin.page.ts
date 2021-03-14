@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Publisher } from '../shared/publisher.model';
 import { PublishersService } from '../shared/services/publishers.service';
+import { User } from '../shared/user.model';
 
 @Component({
   selector: 'app-admin',
@@ -11,7 +11,7 @@ import { PublishersService } from '../shared/services/publishers.service';
 export class AdminPage implements OnInit, OnDestroy {
   pageState = 'offers';
   subscriptions: Subscription[] = [];
-  publishers: Publisher[];
+  publishers: User[];
   constructor(private publishersService: PublishersService) {}
 
   ngOnInit() {

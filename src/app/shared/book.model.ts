@@ -8,6 +8,7 @@ export interface Book {
   author: string;
   translator?: string;
   publisher: string;
+  publisherId: number;
   pubYear: number;
   gist: string;
   imageUrl: string;

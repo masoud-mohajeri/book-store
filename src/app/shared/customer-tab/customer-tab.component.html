@@ -1,0 +1,38 @@
+<ion-tabs>
+  <ion-tab-bar slot="buttom">
+    <ion-tab-button *ngIf="!user?.status" [routerLink]="['/login']">
+      <ion-icon name="map"></ion-icon>
+      <ion-label>ورود</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button
+      *ngIf="user?.status === 'CUSTOMER'"
+      [routerLink]="['/customer']"
+    >
+      <ion-icon name="information-circle"></ion-icon>
+      <ion-label>پنل کاربری</ion-label>
+    </ion-tab-button>
+    <ion-tab-button *ngIf="user?.status === 'ADMIN'" [routerLink]="['/admin']">
+      <ion-icon name="information-circle"></ion-icon>
+      <ion-label>پنل ادمین</ion-label>
+    </ion-tab-button>
+    <ion-tab-button
+      *ngIf="user?.status === 'PUBLISHER'"
+      [routerLink]="['/publisher']"
+    >
+      <ion-icon name="information-circle"></ion-icon>
+      <ion-label>پنل ناشر</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button [routerLink]="['/products-buy']">
+      <ion-icon name="map"></ion-icon>
+      <ion-label>محصولات</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button [routerLink]="['/shopping-card']">
+      <ion-icon name="person-circle"></ion-icon>
+      <ion-label>سبد خرید</ion-label>
+      <ion-badge color="success">{{ badgeNumber }}</ion-badge>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

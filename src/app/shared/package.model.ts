@@ -3,4 +3,5 @@ export interface Package {
   name: string;
   imageUrl: string;
   bookIdArray: number[];
+  description: string;
 }

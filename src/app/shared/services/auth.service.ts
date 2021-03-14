@@ -11,6 +11,11 @@ export class AuthService {
 
   login(username: string, password: number) {
     this.isAuth.next(true);
-    this.userInfo.next({ name: 'masoud', status: 'CUSTOMER' });
+    this.userInfo.next({
+      id: 1,
+      name: 'masoud',
+      status: 'CUSTOMER',
+      activatedStatus: true,
+    });
   }
 }

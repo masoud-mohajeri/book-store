@@ -12,6 +12,7 @@ import { BookPackagesComponent } from './book-packages/book-packages.component';
 import { BookPageComponent } from './book-page/book-page.component';
 import { PackageCardComponent } from './package-card/package-card.component';
 import { PackagePageComponent } from './package-page/package-page.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { PackagePageComponent } from './package-page/package-page.component';
     IonicModule,
     ProductsBuyPageRoutingModule,
     NgxPaginationModule,
+    
   ],
   declarations: [
     ProductsBuyPage,

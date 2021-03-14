@@ -2,8 +2,10 @@ import { Route } from '@angular/compiler/src/core';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Book } from 'src/app/shared/book.model';
+import { Package } from 'src/app/shared/package.model';
 import { BookService } from 'src/app/shared/services/books.service';
 import { PackagesService } from 'src/app/shared/services/package.service';
+import { ShCardService } from 'src/app/shared/services/shcard.service';
 
 @Component({
   selector: 'app-package-page',
@@ -12,21 +14,27 @@ import { PackagesService } from 'src/app/shared/services/package.service';
 })
 export class PackagePageComponent implements OnInit, OnDestroy {
   booksInPack: Book[] = [];
+  thePackage: Package;
   constructor(
     private bookService: BookService,
     private route: ActivatedRoute,
-    private packagesService: PackagesService
+    private packagesService: PackagesService,
+    private scService: ShCardService
   ) {}
 
   ngOnInit() {
     let packageId = +this.route.snapshot.params['pid'];
-    let thePackage = this.packagesService.returnPackageById(packageId);
-    for (let bId of thePackage.bookIdArray) {
+    this.thePackage = this.packagesService.returnPackageById(packageId);
+    for (let bId of this.thePackage.bookIdArray) {
       this.booksInPack.push(this.bookService.returnBookById(bId));
     }
     console.log(this.booksInPack);
   }
-
+  addPackToCard() {
+    for (let bookId of this.thePackage.bookIdArray) {
+      this.scService.addToCard(bookId);
+    }
+  }
   ngOnDestroy() {
     this.booksInPack = [];
   }

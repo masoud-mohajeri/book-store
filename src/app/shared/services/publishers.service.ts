@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Publisher } from '../publisher.model';
+import { User } from '../user.model';
 
 @Injectable({ providedIn: 'root' })
 export class PublishersService {
-  publishers: Publisher[] = [
+  publishers: User[] = [
     {
       id: 1,
       name: 'نور',
+      status: 'PUBLISHER',
       address:
         ' · اسطوره و تاریخ · اقتصاد و آمار · بهداشت و تغذیه · تصویر و متن · جامعه‌شناسی و علوم اجتماعی · دین و مذهب · روانشناسی · زندگی‌نامه و خاطرات · ',
       activatedStatus: false,
@@ -16,6 +17,8 @@ export class PublishersService {
     {
       id: 2,
       name: 'چشمه',
+      status: 'PUBLISHER',
+
       address:
         ' · اسطوره و تاریخ · اقتصاد و آمار · بهداشت و تغذیه · تصویر و متن · جامعه‌شناسی و علوم اجتماعی · دین و مذهب · روانشناسی · زندگی‌نامه و خاطرات · ',
       activatedStatus: false,
@@ -23,6 +26,7 @@ export class PublishersService {
     },
     {
       id: 3,
+      status: 'PUBLISHER',
       name: 'ثالث',
       address:
         ' · اسطوره و تاریخ · اقتصاد و آمار · بهداشت و تغذیه · تصویر و متن · جامعه‌شناسی و علوم اجتماعی · دین و مذهب · روانشناسی · زندگی‌نامه · روانشناسی · زندگی‌نامه · روانشناسی · زندگی‌نامه · روانشناسی · زندگی‌نامه · روانشناسی · زندگی‌نامه · روانشناسی · زندگی‌نامه · روانشناسی · زندگی‌نامه · روانشناسی · زندگی‌نامه · روانشناسی · زندگی‌نامه و خاطرات · ',
@@ -31,6 +35,7 @@ export class PublishersService {
     },
     {
       id: 4,
+      status: 'PUBLISHER',
       name: 'ققنوس',
       address:
         ' نمسیبت سنمیتب سمنیتبس بنمسیبت سنمیتب سمنیتبس بنمسیبت سنمیتب سمنیتبس بنمسیبت سنمیتب سمنیتبس بنمسیبت سنمیتب سمنیتبس بنمسیبت سنمیتب سمنیتبس بنمسیبت سنمیتب سمنیتبس ب ',
@@ -38,7 +43,7 @@ export class PublishersService {
       imageUrl: '../../../assets/books/alice-in-wondeland.png',
     },
   ];
-  publisherEmitter = new BehaviorSubject<Publisher[]>(null);
+  publisherEmitter = new BehaviorSubject<User[]>(null);
 
   getAllPublishers() {
     this.publisherEmitter.next(this.publishers);

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -10,7 +12,7 @@ export class AuthPage implements OnInit {
   formStatus = 'login';
   signupForm: FormGroup;
   loginForm: FormGroup;
-  constructor() {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.signupForm = new FormGroup({
@@ -19,6 +21,7 @@ export class AuthPage implements OnInit {
       password2: new FormControl(null, Validators.required),
       email: new FormControl(null, Validators.required),
       status: new FormControl(null, Validators.required),
+      address: new FormControl(null, Validators.required),
     });
     this.loginForm = new FormGroup({
       email: new FormControl(null, Validators.required),
@@ -30,5 +33,9 @@ export class AuthPage implements OnInit {
     console.log(this.formStatus);
   }
 
-  onClick() {}
+  onSignup() {}
+  onLogin() {
+    this.authService.login('a', 1);
+    this.router.navigate(['/']);
+  }
 }

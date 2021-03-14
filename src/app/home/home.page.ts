@@ -8,7 +8,7 @@ import { User } from '../shared/user.model';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  user: User;
+  user: User = null;
   constructor(private authService: AuthService) {}
   ngOnInit() {
     this.authService.userInfo.subscribe((userSub) => {

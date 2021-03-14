@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { Book } from 'src/app/shared/book.model';
 import { BookService } from 'src/app/shared/services/books.service';
+import { ShCardService } from 'src/app/shared/services/shcard.service';
 
 @Component({
   selector: 'app-book-page',
@@ -13,14 +14,16 @@ export class BookPageComponent implements OnInit {
   book: Book;
   constructor(
     private route: ActivatedRoute,
-    private bookService: BookService
+    private bookService: BookService,
+    private scService: ShCardService
   ) {}
 
   ngOnInit() {
     let id = this.route.snapshot.params['id'];
     this.book = this.bookService.returnBookById(+id);
   }
+
   addToCard() {
-    console.log(this.book);
+    this.scService.addToCard(this.book.id);
   }
 }

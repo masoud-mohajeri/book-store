@@ -47,6 +47,10 @@ export class OffersComponent implements OnInit, OnDestroy {
         this.onEditPackage?.bookIdArray,
         Validators.required
       ),
+      description: new FormControl(
+        this.onEditPackage?.description,
+        Validators.required
+      ),
     });
   }
 
@@ -58,6 +62,7 @@ export class OffersComponent implements OnInit, OnDestroy {
       name: this.onEditPackage.name,
       imageUrl: this.onEditPackage.imageUrl,
       bookIdArray: this.onEditPackage.bookIdArray,
+      description:this.onEditPackage.description,
     });
   }
 

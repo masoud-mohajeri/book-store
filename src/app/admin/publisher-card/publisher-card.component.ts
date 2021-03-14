@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Book } from 'src/app/shared/book.model';
-import { Publisher } from 'src/app/shared/publisher.model';
 import { BookService } from 'src/app/shared/services/books.service';
+import { User } from 'src/app/shared/user.model';
 
 @Component({
   selector: 'app-publisher-card',
@@ -9,7 +9,7 @@ import { BookService } from 'src/app/shared/services/books.service';
   styleUrls: ['./publisher-card.component.scss'],
 })
 export class PublisherCardComponent implements OnInit {
-  @Input() publisher: Publisher;
+  @Input() publisher: User;
   books: Book[];
   expanded = false;
   paginationP = 1;
