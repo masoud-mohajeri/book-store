@@ -3,6 +3,7 @@ import { Book } from 'src/app/shared/book.model';
 import { Order } from 'src/app/shared/order.model';
 import { BookService } from 'src/app/shared/services/books.service';
 import { OrderPaymentService } from 'src/app/shared/services/orderPayment.service';
+import { ShCardService } from 'src/app/shared/services/shcard.service';
 
 @Component({
   selector: 'app-item-card',
@@ -14,7 +15,8 @@ export class ItemCardComponent implements OnInit {
   book: Book;
   constructor(
     private bookService: BookService,
-    private orderPayService: OrderPaymentService
+    private orderPayService: OrderPaymentService,
+    private shCardService: ShCardService
   ) {}
 
   ngOnInit() {
@@ -22,5 +24,10 @@ export class ItemCardComponent implements OnInit {
   }
   payThisOrder() {
     this.orderPayService.payOrder(this.order.orderId);
+    this.shCardService.removeFromCard(this.order.bookId);
+  }
+  deleteThisOrder() {
+    this.shCardService.removeFromCard(this.order.bookId);
+    this.orderPayService.deleteOrder(this.order.orderId);
   }
 }

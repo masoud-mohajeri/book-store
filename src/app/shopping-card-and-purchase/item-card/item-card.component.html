@@ -35,6 +35,14 @@
         >
           پرداخت
         </ion-button>
+        <ion-button
+          [disabled]="input.value > book.inventory"
+          (click)="deleteThisOrder()"
+          fill="outline"
+          color="danger"
+        >
+          حذف
+        </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -46,10 +46,6 @@ const routes: Routes = [
         './shopping-card-and-purchase/shopping-card-and-purchase.module'
       ).then((m) => m.ShoppingCardAndPurchasePageModule),
   },
-  {
-    path: 'customer',
-    loadChildren: () => import('./user-area/user-area.module').then( m => m.UserAreaPageModule)
-  },
 ];
 
 @NgModule({

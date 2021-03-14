@@ -8,12 +8,15 @@ import { OrderPaymentService } from '../shared/services/orderPayment.service';
   styleUrls: ['./shopping-card-and-purchase.page.scss'],
 })
 export class ShoppingCardAndPurchasePage implements OnInit {
-  orders: Order[];
+  orders: Order[] = [];
   constructor(private orderPayService: OrderPaymentService) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+  ionViewWillEnter() {
+    this.orderPayService.getAllOrdersUser();
     this.orderPayService.orderEmitter.subscribe((orders) => {
       this.orders = orders;
     });
+    console.log(this.orders);
   }
 }

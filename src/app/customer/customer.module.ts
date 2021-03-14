@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { CustomerPageRoutingModule } from './customer-routing.module';
 
 import { CustomerPage } from './customer.page';
-import { SharedModule } from '../shared/shared.module';
+import { OrderHistoryComponent } from './order-history/order-history.component';
 
 @NgModule({
   imports: [
@@ -17,6 +17,6 @@ import { SharedModule } from '../shared/shared.module';
     CustomerPageRoutingModule,
     ReactiveFormsModule,
   ],
-  declarations: [CustomerPage],
+  declarations: [CustomerPage, OrderHistoryComponent],
 })
 export class CustomerPageModule {}

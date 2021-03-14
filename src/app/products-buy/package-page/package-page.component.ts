@@ -28,7 +28,6 @@ export class PackagePageComponent implements OnInit, OnDestroy {
     for (let bId of this.thePackage.bookIdArray) {
       this.booksInPack.push(this.bookService.returnBookById(bId));
     }
-    console.log(this.booksInPack);
   }
   addPackToCard() {
     for (let bookId of this.thePackage.bookIdArray) {

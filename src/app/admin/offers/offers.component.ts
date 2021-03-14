@@ -1,7 +1,6 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { BookPackagesComponent } from 'src/app/products-buy/book-packages/book-packages.component';
 import { Book } from 'src/app/shared/book.model';
 import { Package } from 'src/app/shared/package.model';
 import { BookService } from 'src/app/shared/services/books.service';

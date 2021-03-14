@@ -1,0 +1,21 @@
+<ion-grid fixed style="direction: rtl">
+  <ion-row>
+    <ion-col size="3">
+      <ion-thumbnail>
+        <img [src]="book.imageUrl" />
+      </ion-thumbnail>
+    </ion-col>
+    <ion-col size="3">
+      {{ book.name }}
+    </ion-col>
+    <ion-col size="3">
+      {{ order.count }}
+    </ion-col>
+    <ion-col *ngIf="order.status === 'PAIED'" size="3">
+      <P>درحال پردازش</P>
+    </ion-col>
+    <ion-col *ngIf="order.status === 'SENT'" size="3">
+      پیگیری پست : {{ order.postId }}
+    </ion-col>
+  </ion-row>
+</ion-grid>
