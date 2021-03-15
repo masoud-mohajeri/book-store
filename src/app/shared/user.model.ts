@@ -3,6 +3,6 @@ export interface User {
   name: string;
   status: 'ADMIN' | 'PUBLISHER' | 'CUSTOMER';
   address?: string;
-  activatedStatus: boolean;
+  activatedStatus?: boolean;
   imageUrl?: string;
 }

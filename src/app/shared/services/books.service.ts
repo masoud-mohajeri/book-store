@@ -177,4 +177,10 @@ export class BookService {
     this.books.push(book);
     this.bookEmitter.next(this.books);
   }
+
+  decreassInvestory(bookId: number, count: number) {
+    const theId = this.books.findIndex((book) => book.id === bookId);
+    this.books[theId].inventory = this.books[theId].inventory - count;
+    this.bookEmitter.next(this.books);
+  }
 }

@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Order } from '../shared/order.model';
+import { OrderPaymentService } from '../shared/services/orderPayment.service';
 import { PublishersService } from '../shared/services/publishers.service';
 import { User } from '../shared/user.model';
 
@@ -12,7 +14,11 @@ export class AdminPage implements OnInit, OnDestroy {
   pageState = 'offers';
   subscriptions: Subscription[] = [];
   publishers: User[];
-  constructor(private publishersService: PublishersService) {}
+  orders: Order[];
+  constructor(
+    private publishersService: PublishersService,
+    private orderPayService: OrderPaymentService
+  ) {}
 
   ngOnInit() {
     this.subscriptions.push(
@@ -20,6 +26,10 @@ export class AdminPage implements OnInit, OnDestroy {
         this.publishers = pubs;
       })
     );
+
+    this.orderPayService.getAllOrders().subscribe((allOrders) => {
+      this.orders = allOrders;
+    });
   }
 
   segmentChanged(event: any) {

@@ -49,4 +49,8 @@ export class PublishersService {
     this.publisherEmitter.next(this.publishers);
     return this.publisherEmitter;
   }
+  returnPublisherById(id: number) {
+    let theId = this.publishers.findIndex((pub) => pub.id === id);
+    return this.publishers[theId];
+  }
 }

@@ -22,9 +22,9 @@
 
   <section *ngIf="pageState==='pubs'">
     <ion-list slot="end">
-    <ion-grid fixed>
-      <ion-row>
-        <ion-col size="12" sizeMd="8" offsetMd="2" offset="0" >
+      <ion-grid fixed>
+        <ion-row>
+          <ion-col size="12" sizeMd="8" offsetMd="2" offset="0">
             <div *ngFor="let publisher of publishers">
               <app-publisher-card [publisher]="publisher"> </app-publisher-card>
             </div>
@@ -32,10 +32,17 @@
         </ion-row>
       </ion-grid>
     </ion-list>
-    
   </section>
   <section *ngIf="pageState==='offers'">
     <app-offers></app-offers>
   </section>
-  <section *ngIf="pageState==='report'"></section>
+  <section *ngIf="pageState==='sale-report'">
+    <section>
+      <app-all-order-history
+      *ngFor="let order of orders"
+      [order]="order"
+      ></app-all-order-history>
+    </section>
+    
+  </section>
 </ion-content>

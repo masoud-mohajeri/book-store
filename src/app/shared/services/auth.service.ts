@@ -14,8 +14,12 @@ export class AuthService {
     this.userInfo.next({
       id: 1,
       name: 'masoud',
-      status: 'CUSTOMER',
-      activatedStatus: true,
+      status: 'ADMIN',
     });
   }
+
+  // returnUserById(id: number) {
+  //   let theId = id;
+  //   return { id: 1, name: 'masoud', status: 'ADMIN' };
+  // }
 }

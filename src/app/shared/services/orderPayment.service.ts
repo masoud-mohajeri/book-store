@@ -10,6 +10,7 @@ import { ShCardService } from './shcard.service';
 export class OrderPaymentService {
   orders: Order[] = [];
   orderEmitter = new BehaviorSubject<Order[]>(this.orders);
+  paymentOk = new BehaviorSubject<boolean>(true);
   shCard: number[] = [];
   user: User;
   constructor(
@@ -18,15 +19,17 @@ export class OrderPaymentService {
     private bookService: BookService
   ) {}
 
-  payOrder(orderId: number) {
+  payOrder(orderId: number, count: number) {
     //  if auth
     const theId = this.orders.findIndex((ord) => ord.orderId === orderId);
     this.authService.userInfo.subscribe((user) => {
       this.user = user;
     });
     this.orders[theId].status = 'PAIED';
-    this.orders[theId].customerId = this.user.id;
+    this.orders[theId].customerAssredd = this.user.address;
+    this.orders[theId].count = count;
     this.orderEmitter.next(this.orders);
+    this.bookService.decreassInvestory(this.orders[theId].bookId, count);
   }
 
   getAllOrdersUser() {
@@ -55,7 +58,70 @@ export class OrderPaymentService {
     this.orderEmitter.next(this.orders);
   }
 
-  getPublisherOrder() {}
+  getPublisherOrder() {
+    // in the name of firebase
+    this.authService.userInfo.subscribe((user) => {
+      this.user = user;
+    });
+    //
+    let fakeOrders: Order[] = [
+      {
+        orderId: 1,
+        bookId: 1,
+        count: 2,
+        publisherId: 1,
+        status: 'PAIED',
+        customerAssredd: 'سینتب سینتسهع اسهع یبعهلیبلعا  بال',
+        paymentDate: 21313123,
+      },
+      {
+        orderId: 2,
+        bookId: 2,
+        count: 2,
+        publisherId: 1,
+        status: 'PAIED',
+        customerAssredd: 'سینتب سینتسهع اسهع یبعهلیبلعا  بال',
+        paymentDate: 21313123,
+      },
+    ];
+    // in the name of firebase : just paied
+    this.orders = fakeOrders;
+    this.orderEmitter.next(this.orders);
+    return this.orderEmitter;
+  }
 
-  getAllOrders() {}
+  sendPaiedOrder(orderId: number, postId: number) {
+    const theId = this.orders.findIndex((ord) => ord.orderId === orderId);
+    this.orders[theId].status = 'SENT';
+    this.orders[theId].postId = postId;
+    this.orderEmitter.next(this.orders);
+
+  }
+
+  getAllOrders() {
+    let fakeOrders: Order[] = [
+      {
+        orderId: 1,
+        bookId: 1,
+        count: 2,
+        publisherId: 1,
+        status: 'SENT',
+        customerAssredd: 'سینتب سینتسهع اسهع یبعهلیبلعا  بال',
+        paymentDate: 21313123,
+      },
+      {
+        orderId: 2,
+        bookId: 2,
+        count: 2,
+        publisherId: 1,
+        status: 'PAIED',
+        customerAssredd: 'سینتب سینتسهع اسهع یبعهلیبلعا  بال',
+        paymentDate: 21313123,
+      },
+    ];
+    // in the name of firebase : just paied
+    this.orders = fakeOrders;
+    this.orderEmitter.next(this.orders);
+    return this.orderEmitter;
+  }
 }

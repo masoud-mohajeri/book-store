@@ -11,6 +11,8 @@ import { AdminPage } from './admin.page';
 import { PublisherCardComponent } from './publisher-card/publisher-card.component';
 import { OffersComponent } from './offers/offers.component';
 import { OfferItemComponent } from './offers/offer-item/offer-item.component';
+import { OrderHistoryComponent } from '../customer/order-history/order-history.component';
+import { AllOrderHistoryComponent } from './all-order-history/all-order-history.component';
 
 @NgModule({
   imports: [
@@ -26,6 +28,7 @@ import { OfferItemComponent } from './offers/offer-item/offer-item.component';
     PublisherCardComponent,
     OffersComponent,
     OfferItemComponent,
+    AllOrderHistoryComponent,
   ],
 })
 export class AdminPageModule {}

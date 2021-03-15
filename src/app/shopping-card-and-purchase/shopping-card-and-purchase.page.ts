@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Order } from '../shared/order.model';
 import { OrderPaymentService } from '../shared/services/orderPayment.service';
+import { ShCardService } from '../shared/services/shcard.service';
 
 @Component({
   selector: 'app-shopping-card-and-purchase',
@@ -9,7 +10,11 @@ import { OrderPaymentService } from '../shared/services/orderPayment.service';
 })
 export class ShoppingCardAndPurchasePage implements OnInit {
   orders: Order[] = [];
-  constructor(private orderPayService: OrderPaymentService) {}
+  paymentStatus = true;
+  constructor(
+    private orderPayService: OrderPaymentService,
+    private shCardService: ShCardService
+  ) {}
 
   ngOnInit() {}
   ionViewWillEnter() {
@@ -18,5 +23,13 @@ export class ShoppingCardAndPurchasePage implements OnInit {
       this.orders = orders;
     });
     console.log(this.orders);
+    this.orderPayService.paymentOk.subscribe((ok) => (this.paymentStatus = ok));
   }
+
+  // payAllItems() {
+  //   for (let order of this.orders) {
+  //     this.orderPayService.payOrder(order.orderId);
+  //     this.shCardService.removeFromCard(order.bookId);
+  //   }
+  // }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Book } from 'src/app/shared/book.model';
 import { Order } from 'src/app/shared/order.model';
 import { BookService } from 'src/app/shared/services/books.service';
@@ -22,12 +22,12 @@ export class ItemCardComponent implements OnInit {
   ngOnInit() {
     this.book = this.bookService.returnBookById(this.order.bookId);
   }
-  payThisOrder() {
-    this.orderPayService.payOrder(this.order.orderId);
+  payThisOrder(count: any) {
+    this.orderPayService.payOrder(this.order.orderId, count);
     this.shCardService.removeFromCard(this.order.bookId);
   }
   deleteThisOrder() {
-    this.shCardService.removeFromCard(this.order.bookId);
     this.orderPayService.deleteOrder(this.order.orderId);
+    this.shCardService.removeFromCard(this.order.bookId);
   }
 }
