@@ -15,25 +15,38 @@ export class AuthPage implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.signupForm = new FormGroup({
-      name: new FormControl(null, Validators.required),
-      password1: new FormControl(null, Validators.required),
-      password2: new FormControl(null, Validators.required),
-      email: new FormControl(null, Validators.required),
-      status: new FormControl(null, Validators.required),
-      address: new FormControl(null, Validators.required),
-    });
+    this.signupForm = new FormGroup(
+      {
+        name: new FormControl(null, Validators.required),
+        password1: new FormControl(null, [
+          Validators.required,
+          Validators.minLength(6),
+        ]),
+        password2: new FormControl(null, Validators.required),
+        email: new FormControl(null, [Validators.required, Validators.email]),
+        address: new FormControl(null, Validators.required),
+        status: new FormControl(null, Validators.required),
+      },
+      { validators: this.checkPasswords }
+    );
     this.loginForm = new FormGroup({
-      email: new FormControl(null, Validators.required),
+      email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, Validators.required),
     });
   }
   segmentChanged(value: any) {
     this.formStatus = value.detail.value;
-    console.log(this.formStatus);
   }
 
-  onSignup() {}
+  checkPasswords(group: FormGroup) {
+    const password = group.controls.password1.value;
+    const confirmPassword = group.controls.password2.value;
+    return password === confirmPassword ? null : { notSame: true };
+  }
+
+  onSignup() {
+    console.log(this.signupForm);
+  }
   onLogin() {
     this.authService.login('a', 1);
     this.router.navigate(['/']);

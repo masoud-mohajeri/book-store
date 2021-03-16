@@ -14,7 +14,7 @@ export class AuthService {
     this.userInfo.next({
       id: 1,
       name: 'masoud',
-      status: 'ADMIN',
+      status: 'PUBLISHER',
     });
   }
 

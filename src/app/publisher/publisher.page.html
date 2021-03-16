@@ -1,9 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <!-- <ion-buttons fxHide.lt-md slot="end">
-      <ion-menu-button menu="home"></ion-menu-button>
-    </ion-buttons> -->
-    <ion-title>publisher</ion-title>
+    <ion-title slot="end">{{ userInfo.name}} 🖨️</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -18,9 +15,6 @@
     <ion-segment-button value="orders">
       <ion-label>سفارش ها </ion-label>
     </ion-segment-button>
-    <!-- <ion-segment-button value="about-pub">
-      <ion-label>درباره نشر </ion-label>
-    </ion-segment-button> -->
   </ion-segment>
   <section *ngIf="userInfo.activatedStatus">
     <section *ngIf="pageStatus==='books'">
@@ -52,7 +46,7 @@
       <ion-row>
         <ion-col size="12">
           <h2>
-            ناشر گرامی شما برای دسترسی به صفحه ی خود نیاز به تایید مدیریت ساید
+            ناشر گرامی شما برای دسترسی به صفحه ی خود نیاز به تایید مدیریت سایت
             دارید .
           </h2>
         </ion-col>

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>auth</ion-title>
+    <ion-title slot="end">ورود </ion-title>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
@@ -43,8 +43,8 @@
                 ></ion-input>
               </ion-item>
               <ion-button
+                [disabled]="loginForm.invalid"
                 type="submit"
-                (click)="onLogin()"
                 expand="block"
                 fill="clear"
                 color="tertiary"
@@ -65,20 +65,24 @@
                 <ion-label position="fixed" style="direction: rtl" slot="end"
                   >ایمیل :</ion-label
                 >
-                <ion-input type="text" formControlName="email"></ion-input>
+                <ion-input type="email" formControlName="email"></ion-input>
               </ion-item>
               <ion-item>
                 <ion-label position="fixed" style="direction: rtl" slot="end">
                   رمز عبور :</ion-label
                 >
-                <ion-input type="text" formControlName="password1"></ion-input>
+                <ion-input
+                  type="password"
+                  formControlName="password1"
+                ></ion-input>
               </ion-item>
               <!-- <ion-item> -->
               <ion-item>
                 <ion-label position="fixed" style="direction: rtl" slot="end">
                   تکرار رمز عبور :
                 </ion-label>
-                <ion-input type="text" formControlName="password2"> </ion-input>
+                <ion-input #pr type="password" formControlName="password2">
+                </ion-input>
               </ion-item>
               <ion-item>
                 <ion-label position="fixed" style="direction: rtl" slot="end">
@@ -90,20 +94,24 @@
                 <ion-label position="fixed" style="direction: rtl" slot="end">
                   وضعیت
                 </ion-label>
-                <ion-select mode="ios">
+                <ion-select formControlName="status" mode="ios">
                   <ion-select-option value="CUSTOMER">مشتری</ion-select-option>
                   <ion-select-option value="PUBLISHER">ناشر</ion-select-option>
                   <ion-select-option value="ADMIN">ادمین</ion-select-option>
                 </ion-select>
               </ion-item>
-
-              <!-- </ion-item> -->
+              <ion-label
+                style="direction: rtl"
+                *ngIf="signupForm.errors?.notSame && signupForm.controls.password2.dirty"
+              >
+                <ion-text color="danger"> رمز ها باید مشابه باشند* </ion-text>
+              </ion-label>
               <ion-button
                 type="submit"
-                (click)="onSignup()"
                 expand="block"
                 fill="clear"
                 shape="round"
+                [disabled]="signupForm.invalid"
               >
                 ثبت نام
               </ion-button>

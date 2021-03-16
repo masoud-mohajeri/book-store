@@ -3,13 +3,15 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="home"></ion-back-button>
     </ion-buttons>
-    <ion-title>customer</ion-title>
+    <ion-title slot="end">مشتری 👨‍🚀</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
   <ion-grid fixed>
-    <ion-row>
+    <ion-row style="direction: rtl">
+      <h2>تغییر آدرس 🏠</h2>
       <ion-col size="12">
         <form [formGroup]="addressForm" (ngSubmit)="saveNewAddress()">
           <ion-item style="direction: rtl">
@@ -22,12 +24,19 @@
         </form>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row style="direction: rtl">
+      <h2>پیگیری سفارش ها 📦</h2>
       <ion-col size="12">
         <app-order-history
           *ngFor="let order of orders"
           [order]="order"
         ></app-order-history>
+
+        <section
+        *ngIf="orders.length==0"
+        >
+      <h4> شما هیج سفارشی نداشته اید. </h4>
+      </section>
       </ion-col>
     </ion-row>
   </ion-grid>
