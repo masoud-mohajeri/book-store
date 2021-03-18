@@ -10,11 +10,11 @@ import { BookService } from 'src/app/shared/services/books.service';
 })
 export class EditBookComponent implements OnInit {
   // bookIdToEdit: number ;
+  @Input() book: Book;
+  @Input() bookId: string;
   bookForm: FormGroup;
   bookObj: Book = null;
   editMode = false;
-  @Input() book: Book;
-  @Input() bookId: number;
   constructor(private bookService: BookService) {}
 
   ngOnInit() {
@@ -38,8 +38,12 @@ export class EditBookComponent implements OnInit {
   }
   onSave() {
     if (this.bookForm.value !== this.bookObj) {
-      this.bookService.saveChanges(this.bookForm.value, this.bookId);
+      console.log(this.book.id);
+      this.bookService.saveChanges(this.bookForm.value,this.book.id);
       this.expandCollaps();
     }
+  }
+  onDeleteBook(){
+    console.log(this.book.id)
   }
 }

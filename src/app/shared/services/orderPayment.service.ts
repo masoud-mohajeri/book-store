@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { Book } from '../book.model';
 import { Order } from '../order.model';
 import { User } from '../user.model';
 import { AuthService } from './auth.service';
@@ -11,7 +12,7 @@ export class OrderPaymentService {
   orders: Order[] = [];
   orderEmitter = new BehaviorSubject<Order[]>(this.orders);
   paymentOk = new BehaviorSubject<boolean>(true);
-  shCard: number[] = [];
+  shCard: string[] = [];
   user: User;
   constructor(
     private shcardService: ShCardService,
@@ -19,7 +20,7 @@ export class OrderPaymentService {
     private bookService: BookService
   ) {}
 
-  payOrder(orderId: number, count: number) {
+  payOrder(orderId: string, count: number) {
     //  if auth
     const theId = this.orders.findIndex((ord) => ord.orderId === orderId);
     this.authService.userInfo.subscribe((user) => {
@@ -39,11 +40,14 @@ export class OrderPaymentService {
     });
 
     for (let book of this.shCard) {
-      const theBook = this.bookService.returnBookById(+book);
+      let theBook: Book;
+      this.bookService.returnBookById(book).subscribe((book: Book) => {
+        theBook = book;
+      });
       const newOrder: Order = {
-        bookId: book,
+        bookId: book.toString(),
         count: 1,
-        orderId: Math.round(Math.random() * 1000 + 1000),
+        orderId: Math.round(Math.random() * 1000 + 1000).toString(),
         publisherId: theBook.publisherId,
         status: 'CARD',
       };
@@ -51,7 +55,7 @@ export class OrderPaymentService {
     }
     this.orderEmitter.next(this.orders);
   }
-  deleteOrder(OrderId: number) {
+  deleteOrder(OrderId: string) {
     const theId = this.orders.findIndex((ord) => ord.orderId === OrderId);
     this.orders.splice(theId, 1);
 
@@ -66,19 +70,19 @@ export class OrderPaymentService {
     //
     let fakeOrders: Order[] = [
       {
-        orderId: 1,
-        bookId: 1,
+        orderId: '1',
+        bookId: '1',
         count: 2,
-        publisherId: 1,
+        publisherId: '1',
         status: 'PAIED',
         customerAssredd: 'سینتب سینتسهع اسهع یبعهلیبلعا  بال',
         paymentDate: 21313123,
       },
       {
-        orderId: 2,
-        bookId: 2,
+        orderId: '2',
+        bookId: '2',
         count: 2,
-        publisherId: 1,
+        publisherId: '1',
         status: 'PAIED',
         customerAssredd: 'سینتب سینتسهع اسهع یبعهلیبلعا  بال',
         paymentDate: 21313123,
@@ -90,30 +94,29 @@ export class OrderPaymentService {
     return this.orderEmitter;
   }
 
-  sendPaiedOrder(orderId: number, postId: number) {
+  sendPaiedOrder(orderId: string, postId: number) {
     const theId = this.orders.findIndex((ord) => ord.orderId === orderId);
     this.orders[theId].status = 'SENT';
     this.orders[theId].postId = postId;
     this.orderEmitter.next(this.orders);
-
   }
 
   getAllOrders() {
     let fakeOrders: Order[] = [
       {
-        orderId: 1,
-        bookId: 1,
+        orderId: '1',
+        bookId: '1',
         count: 2,
-        publisherId: 1,
+        publisherId: '1',
         status: 'SENT',
         customerAssredd: 'سینتب سینتسهع اسهع یبعهلیبلعا  بال',
         paymentDate: 21313123,
       },
       {
-        orderId: 2,
-        bookId: 2,
+        orderId: '2',
+        bookId: '2',
         count: 2,
-        publisherId: 1,
+        publisherId: '1',
         status: 'PAIED',
         customerAssredd: 'سینتب سینتسهع اسهع یبعهلیبلعا  بال',
         paymentDate: 21313123,

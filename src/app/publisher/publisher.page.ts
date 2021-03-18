@@ -6,6 +6,8 @@ import { AuthService } from '../shared/services/auth.service';
 import { BookService } from '../shared/services/books.service';
 import { OrderPaymentService } from '../shared/services/orderPayment.service';
 import { User } from '../shared/user.model';
+import { map } from 'rxjs/operators';
+import { UIService } from '../shared/services/ui.service';
 
 @Component({
   selector: 'app-publisher',
@@ -13,20 +15,31 @@ import { User } from '../shared/user.model';
   styleUrls: ['./publisher.page.scss'],
 })
 export class PublisherPage implements OnInit {
-  books: Book[];
+  books: Book[] = [];
   pageStatus = 'books';
   orders: Order[] = [];
   userInfo: User;
   constructor(
     private bookService: BookService,
     private orderPaymentService: OrderPaymentService,
-    private authService: AuthService
+    private authService: AuthService,
+    private uiService: UIService
   ) {}
 
   ngOnInit() {
-    this.bookService.bookEmitter.subscribe((books) => {
-      this.books = books;
-    });
+    this.uiService.needSpinner.next(true);
+    this.bookService.getAllBooks().subscribe(
+      (someBook) => {
+        this.uiService.needSpinner.next(false);
+        this.books = someBook;
+      },
+      (error) => {
+        this.uiService.needSpinner.next(false);
+        this.uiService.presentToast('مشکلی در دریافت لیست کتاب ها وجود دارد .');
+        throw new Error(error);
+      }
+    );
+
     this.orderPaymentService.getPublisherOrder().subscribe((orders) => {
       this.orders = orders;
     });

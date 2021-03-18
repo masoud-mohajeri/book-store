@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { Order } from '../shared/order.model';
 import { OrderPaymentService } from '../shared/services/orderPayment.service';
 import { PublishersService } from '../shared/services/publishers.service';
+import { UIService } from '../shared/services/ui.service';
 import { User } from '../shared/user.model';
 
 @Component({
@@ -17,14 +18,21 @@ export class AdminPage implements OnInit, OnDestroy {
   orders: Order[];
   constructor(
     private publishersService: PublishersService,
-    private orderPayService: OrderPaymentService
+    private orderPayService: OrderPaymentService,
+    private uiService: UIService
   ) {}
 
   ngOnInit() {
     this.subscriptions.push(
-      this.publishersService.getAllPublishers().subscribe((pubs) => {
-        this.publishers = pubs;
-      })
+      this.publishersService.getAllPublishers().subscribe(
+        (pubs) => {
+          this.publishers = pubs;
+        },
+        (error) => {
+          this.uiService.presentToast('مشکلی در دریافت لیست ناشران وجود دارد ');
+          throw new Error(error);
+        }
+      )
     );
 
     this.orderPayService.getAllOrders().subscribe((allOrders) => {

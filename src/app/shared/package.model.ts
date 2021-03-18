@@ -1,7 +1,7 @@
 export interface Package {
-  packageId: number;
+  id: string;
   name: string;
   imageUrl: string;
-  bookIdArray: number[];
+  bookIdArray: string[];
   description: string;
 }

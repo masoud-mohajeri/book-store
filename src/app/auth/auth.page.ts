@@ -30,9 +30,13 @@ export class AuthPage implements OnInit {
       { validators: this.checkPasswords }
     );
     this.loginForm = new FormGroup({
-      email: new FormControl(null, [Validators.required, Validators.email]),
-      password: new FormControl(null, Validators.required),
+      email: new FormControl(null),
+      password: new FormControl(null),
     });
+    // this.loginForm = new FormGroup({
+    //   email: new FormControl(null, [Validators.required, Validators.email]),
+    //   password: new FormControl(null, Validators.required),
+    // });
   }
   segmentChanged(value: any) {
     this.formStatus = value.detail.value;

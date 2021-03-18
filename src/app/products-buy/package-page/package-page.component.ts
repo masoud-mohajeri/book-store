@@ -23,15 +23,24 @@ export class PackagePageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    let packageId = +this.route.snapshot.params['pid'];
-    this.thePackage = this.packagesService.returnPackageById(packageId);
+    let packageId = this.route.snapshot.params['pid'];
+    // this.thePackage = this.packagesService.returnPackageById(packageId);
+    // this.packagesService.returnPackageById(packageId).subscribe((pack) => {
+    //   this.thePackage = pack;
+    // });
+
+    this.packagesService.returnPackageById(packageId).then((p) => {
+      this.thePackage = p;
+    });
     for (let bId of this.thePackage.bookIdArray) {
-      this.booksInPack.push(this.bookService.returnBookById(bId));
+      this.bookService.returnBookById(bId).subscribe((book) => {
+        this.booksInPack.push(book);
+      });
     }
   }
   addPackToCard() {
     for (let bookId of this.thePackage.bookIdArray) {
-      this.scService.addToCard(bookId);
+      this.scService.addToCard(bookId.toString());
     }
   }
   ngOnDestroy() {

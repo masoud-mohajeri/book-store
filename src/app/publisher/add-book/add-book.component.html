@@ -31,7 +31,11 @@
         <!-- publisher -->
         <ion-item>
           <ion-label position="fixed" slot="end"> : ناشر </ion-label>
-          <ion-input type="text" formControlName="publisher"></ion-input>
+          <ion-input
+            readonly
+            type="text"
+            formControlName="publisher"
+          ></ion-input>
         </ion-item>
         <!-- pubYear -->
         <ion-item>
@@ -41,7 +45,7 @@
         <!-- imageUrl -->
         <ion-item>
           <ion-label position="fixed" slot="end"> : عکس </ion-label>
-          <ion-input type="file" formControlName="imageUrl"></ion-input>
+          <ion-input  (change)="uploadFile($event)" type="file" formControlName="imageUrl"></ion-input>
         </ion-item>
         <!-- gist -->
         <ion-item>

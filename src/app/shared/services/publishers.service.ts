@@ -1,55 +1,40 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../user.model';
+import { UIService } from './ui.service';
 
 @Injectable({ providedIn: 'root' })
 export class PublishersService {
-  publishers: User[] = [
-    {
-      id: 1,
-      name: 'نور',
-      status: 'PUBLISHER',
-      address:
-        ' · اسطوره و تاریخ · اقتصاد و آمار · بهداشت و تغذیه · تصویر و متن · جامعه‌شناسی و علوم اجتماعی · دین و مذهب · روانشناسی · زندگی‌نامه و خاطرات · ',
-      activatedStatus: false,
-      imageUrl: '../../../assets/books/alice-in-wondeland.png',
-    },
-    {
-      id: 2,
-      name: 'چشمه',
-      status: 'PUBLISHER',
-
-      address:
-        ' · اسطوره و تاریخ · اقتصاد و آمار · بهداشت و تغذیه · تصویر و متن · جامعه‌شناسی و علوم اجتماعی · دین و مذهب · روانشناسی · زندگی‌نامه و خاطرات · ',
-      activatedStatus: false,
-      imageUrl: '../../../assets/books/alice-in-wondeland.png',
-    },
-    {
-      id: 3,
-      status: 'PUBLISHER',
-      name: 'ثالث',
-      address:
-        ' · اسطوره و تاریخ · اقتصاد و آمار · بهداشت و تغذیه · تصویر و متن · جامعه‌شناسی و علوم اجتماعی · دین و مذهب · روانشناسی · زندگی‌نامه · روانشناسی · زندگی‌نامه · روانشناسی · زندگی‌نامه · روانشناسی · زندگی‌نامه · روانشناسی · زندگی‌نامه · روانشناسی · زندگی‌نامه · روانشناسی · زندگی‌نامه · روانشناسی · زندگی‌نامه · روانشناسی · زندگی‌نامه و خاطرات · ',
-      activatedStatus: false,
-      imageUrl: '../../../assets/books/alice-in-wondeland.png',
-    },
-    {
-      id: 4,
-      status: 'PUBLISHER',
-      name: 'ققنوس',
-      address:
-        ' نمسیبت سنمیتب سمنیتبس بنمسیبت سنمیتب سمنیتبس بنمسیبت سنمیتب سمنیتبس بنمسیبت سنمیتب سمنیتبس بنمسیبت سنمیتب سمنیتبس بنمسیبت سنمیتب سمنیتبس بنمسیبت سنمیتب سمنیتبس ب ',
-      activatedStatus: true,
-      imageUrl: '../../../assets/books/alice-in-wondeland.png',
-    },
-  ];
+  publishers: User[] = [];
   publisherEmitter = new BehaviorSubject<User[]>(null);
 
+  constructor(private afs: AngularFirestore, private uiService: UIService) {}
+
   getAllPublishers() {
-    this.publisherEmitter.next(this.publishers);
-    return this.publisherEmitter;
+    return this.afs
+      .collection<User>('Publisher')
+      .valueChanges({ idField: 'id' });
   }
-  returnPublisherById(id: number) {
+
+  changePublisherStatus(status: boolean, pubId: string) {
+    this.afs
+      .doc('Publisher/' + pubId)
+      .update({ activatedStatus: status })
+      .then(() => {
+        if (status) {
+          this.uiService.presentToast('ناشر با موفقیت تایید شد ');
+        } else {
+          this.uiService.presentToast('ناشر با موفقیت مسدود شد ');
+        }
+      })
+      .catch((err) => {
+        this.uiService.presentToast('مشکلی در تغییر وضعیت ناشر وجود دارد ');
+        throw new Error(err);
+      });
+  }
+
+  returnPublisherById(id: string) {
     let theId = this.publishers.findIndex((pub) => pub.id === id);
     return this.publishers[theId];
   }

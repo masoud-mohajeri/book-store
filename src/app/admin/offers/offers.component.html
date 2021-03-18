@@ -7,7 +7,7 @@
           <ion-input
             style="direction: rtl"
             type="text"
-            formControlName="packageId"
+            formControlName="id"
             readonly
           >
           </ion-input>
@@ -23,6 +23,7 @@
             style="direction: rtl"
             type="file"
             formControlName="imageUrl"
+            (change)="uploadFile($event)"
           >
           </ion-input>
         </ion-item>
@@ -39,7 +40,7 @@
             multiple="true"
             okText="Okay!"
           >
-            <ion-select-option *ngFor="let book of allBooks" [value]="book.id">
+            <ion-select-option *ngFor="let book of books" [value]="book.id">
               {{ book.name }}-{{ book.publisher }}
             </ion-select-option>
           </ion-select>
@@ -90,12 +91,12 @@
       <ion-list style="direction: rtl">
         <section
           *ngFor="
-            let pack of packages
+            let pack of packages | async
               | paginate: { itemsPerPage: 5, currentPage: paginationP }
           "
         >
           <ion-button
-            (click)="editPack(pack.packageId)"
+            (click)="editPack(pack.id)"
             fill="outline"
             expand="block"
             color="medium"

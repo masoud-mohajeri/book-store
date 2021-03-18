@@ -15,7 +15,11 @@ export class OfferItemComponent implements OnInit {
 
   ngOnInit() {
     for (const bookId of this.package.bookIdArray) {
-      this.books.push(this.bookService.returnBookById(bookId));
+      this.bookService.returnBookById(bookId).subscribe((book: Book) => {
+        this.books.push(book);
+      });
+
+      // this.books.push(this.bookService.returnBookById(bookId.toString()));
     }
   }
 }

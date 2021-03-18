@@ -12,14 +12,9 @@ export class AuthService {
   login(username: string, password: number) {
     this.isAuth.next(true);
     this.userInfo.next({
-      id: 1,
+      id: '1',
       name: 'masoud',
-      status: 'PUBLISHER',
+      status: 'CUSTOMER',
     });
   }
-
-  // returnUserById(id: number) {
-  //   let theId = id;
-  //   return { id: 1, name: 'masoud', status: 'ADMIN' };
-  // }
 }

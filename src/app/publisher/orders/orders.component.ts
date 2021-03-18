@@ -27,7 +27,9 @@ export class OrdersComponent implements OnInit {
         Validators.minLength(4),
       ]),
     });
-    this.theBook = this.bookService.returnBookById(this.order.bookId);
+    this.bookService.returnBookById(this.order.bookId).subscribe((book) => {
+      this.theBook = book;
+    });
   }
   sendBook() {
     this.orderPaymentService.sendPaiedOrder(

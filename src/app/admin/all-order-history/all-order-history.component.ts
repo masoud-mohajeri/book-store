@@ -22,7 +22,9 @@ export class AllOrderHistoryComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.book = this.booksService.returnBookById(this.order.bookId);
+    this.booksService.returnBookById(this.order.bookId).subscribe((book) => {
+      this.book = book;
+    });
     this.publisher = this.publisherService.returnPublisherById(
       this.order.publisherId
     );

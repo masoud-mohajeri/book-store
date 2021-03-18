@@ -20,7 +20,7 @@ export class ItemCardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.book = this.bookService.returnBookById(this.order.bookId);
+    // this.book = this.bookService.returnBookById(this.order.bookId);
   }
   payThisOrder(count: any) {
     this.orderPayService.payOrder(this.order.orderId, count);

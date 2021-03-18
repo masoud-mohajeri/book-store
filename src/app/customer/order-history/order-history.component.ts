@@ -14,6 +14,8 @@ export class OrderHistoryComponent implements OnInit {
   constructor(private bookService: BookService) {}
 
   ngOnInit() {
-    this.book = this.bookService.returnBookById(this.order.bookId);
+    this.bookService.returnBookById(this.order.bookId).subscribe((book) => {
+      this.book = book;
+    });
   }
 }

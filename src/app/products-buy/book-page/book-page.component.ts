@@ -20,7 +20,9 @@ export class BookPageComponent implements OnInit {
 
   ngOnInit() {
     let id = this.route.snapshot.params['id'];
-    this.book = this.bookService.returnBookById(+id);
+    this.bookService.returnBookById(id).subscribe((book) => {
+      this.book = book;
+    });
   }
 
   addToCard() {

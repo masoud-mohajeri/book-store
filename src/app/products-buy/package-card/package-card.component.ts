@@ -18,13 +18,13 @@ export class PackageCardComponent implements OnInit {
 
   ngOnInit() {}
   goToPackage() {
-    this.router.navigate(['package', this.package.packageId], {
+    this.router.navigate(['package', this.package.id], {
       relativeTo: this.route,
     });
   }
   addToCard() {
     for (let bookId of this.package.bookIdArray) {
-      this.scService.addToCard(bookId);
+      this.scService.addToCard(bookId.toString());
     }
   }
 }

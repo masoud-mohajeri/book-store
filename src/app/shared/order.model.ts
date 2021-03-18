@@ -1,9 +1,9 @@
 export interface Order {
-  orderId: number;
-  bookId: number;
+  orderId: string;
+  bookId: string;
   count: number;
   customerAssredd?: string;
-  publisherId: number;
+  publisherId: string;
   status: 'CARD' | 'PAIED' | 'SENT';
   postId?: number;
   paymentDate?: number;
