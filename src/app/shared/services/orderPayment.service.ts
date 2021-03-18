@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject } from 'rxjs';
 import { Book } from '../book.model';
 import { Order } from '../order.model';
@@ -17,7 +18,8 @@ export class OrderPaymentService {
   constructor(
     private shcardService: ShCardService,
     private authService: AuthService,
-    private bookService: BookService
+    private bookService: BookService,
+    private afs: AngularFirestore
   ) {}
 
   payOrder(orderId: string, count: number) {
@@ -29,8 +31,11 @@ export class OrderPaymentService {
     this.orders[theId].status = 'PAIED';
     this.orders[theId].customerAssredd = this.user.address;
     this.orders[theId].count = count;
-    this.orderEmitter.next(this.orders);
     this.bookService.decreassInvestory(this.orders[theId].bookId, count);
+    console.log(this.orders[theId]);
+    this.orderEmitter.next(this.orders);
+    // 
+    this.afs.collection<Order>('Orders').add(this.orders[theId]);
   }
 
   getAllOrdersUser() {
@@ -55,6 +60,7 @@ export class OrderPaymentService {
     }
     this.orderEmitter.next(this.orders);
   }
+
   deleteOrder(OrderId: string) {
     const theId = this.orders.findIndex((ord) => ord.orderId === OrderId);
     this.orders.splice(theId, 1);

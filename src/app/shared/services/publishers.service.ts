@@ -13,13 +13,13 @@ export class PublishersService {
 
   getAllPublishers() {
     return this.afs
-      .collection<User>('Publisher')
+      .collection<User>('User')
       .valueChanges({ idField: 'id' });
   }
 
   changePublisherStatus(status: boolean, pubId: string) {
     this.afs
-      .doc('Publisher/' + pubId)
+      .doc('User/' + pubId)
       .update({ activatedStatus: status })
       .then(() => {
         if (status) {

@@ -22,13 +22,16 @@ export class ShCardService {
     console.log(this.cardList);
     this.cardListEmitter.next(this.cardList);
   }
+
   removeFromCard(id: string) {
     const theId = this.cardList.findIndex((item) => item === id);
     this.cardList.splice(theId, 1);
     this.cardListEmitter.next(this.cardList);
   }
+
   clearCard() {
     this.cardList = [];
     this.cardListEmitter.next(this.cardList);
   }
+  
 }

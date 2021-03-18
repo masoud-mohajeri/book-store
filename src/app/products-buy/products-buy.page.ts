@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Book } from '../shared/book.model';
 import { Package } from '../shared/package.model';
 import { BookService } from '../shared/services/books.service';
@@ -19,7 +19,10 @@ export class ProductsBuyPage implements OnInit, OnDestroy {
     speed: 400,
   };
   packages: Package[];
-  paginationP = 1 ;
+  packagesObs: Observable<Package[]>;
+  booksObs: Observable<Book[]>;
+
+  paginationP = 1;
   constructor(
     private bookService: BookService,
     private packagesService: PackagesService
@@ -27,7 +30,7 @@ export class ProductsBuyPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subs.push(
-      this.bookService.bookEmitter.subscribe((bookArray: Book[]) => {
+      this.bookService.getAllBooks().subscribe((bookArray: Book[]) => {
         this.books = bookArray;
       })
     );
@@ -36,6 +39,13 @@ export class ProductsBuyPage implements OnInit, OnDestroy {
         this.packages = packages;
       })
     );
+    this.packagesObs =  new Observable<Package[]>((Packageo) => {
+      this.packagesService.getAllPackages().subscribe((packages) => {
+        Packageo.next(packages);
+        
+      });
+    });
+    console.log(this.packages);
   }
   ngOnDestroy() {
     this.subs.forEach((sub) => sub.unsubscribe());

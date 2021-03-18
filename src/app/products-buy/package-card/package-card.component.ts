@@ -18,6 +18,7 @@ export class PackageCardComponent implements OnInit {
 
   ngOnInit() {}
   goToPackage() {
+    console.log(this.package.id);
     this.router.navigate(['package', this.package.id], {
       relativeTo: this.route,
     });

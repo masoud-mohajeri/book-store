@@ -14,8 +14,8 @@ import { UIService } from './ui.service';
 
 @Injectable({ providedIn: 'root' })
 export class BookService {
-  books: Book[] = [];
-  bookEmitter = new BehaviorSubject<Book[]>(this.books);
+  // books: Book[] = [];
+  // bookEmitter = new BehaviorSubject<Book[]>(this.books);
   booksCollection: AngularFirestoreCollection<Book>;
   Publisher: User = null;
   constructor(
@@ -42,10 +42,7 @@ export class BookService {
       .valueChanges({ idField: 'id' });
   }
 
-  getBookById(i: number) {
-    // this.books.find((book) => book.id === i);
-    this.bookEmitter.next(this.books);
-  }
+
 
   returnBookById(id: string) {
     return this.afs.doc<Book>('Book/' + id).valueChanges({ idFeild: 'id' });
@@ -70,8 +67,8 @@ export class BookService {
   // }
 
   addBook(book: Book) {
-    this.books.push(book);
-    this.bookEmitter.next(this.books);
+    // this.books.push(book);
+    // this.bookEmitter.next(this.books);
 
     return new Promise((resolve, reject) => {
       this.booksCollection
@@ -103,8 +100,23 @@ export class BookService {
   }
 
   decreassInvestory(bookId: string, count: number) {
-    const theId = this.books.findIndex((book) => book.id === bookId);
-    this.books[theId].inventory = this.books[theId].inventory - count;
-    this.bookEmitter.next(this.books);
+    new Promise((resolve, reject) => {
+      this.afs
+        .doc<Book>('Book/' + bookId)
+        .get()
+        .subscribe((book) => {
+          resolve(book);
+        });
+    }).then((book: Book) => {
+      this.afs
+        .doc<Book>('Book/' + bookId)
+        .update({ inventory: book.inventory - count })
+        .then((res) => {
+          console.log('book investory decreased successfully');
+        });
+    });
+    // const theId = this.books.findIndex((book) => book.id === bookId);
+    // this.books[theId].inventory = this.books[theId].inventory - count;
+    // this.bookEmitter.next(this.books);
   }
 }

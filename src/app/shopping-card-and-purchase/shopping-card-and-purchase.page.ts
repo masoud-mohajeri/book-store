@@ -17,12 +17,13 @@ export class ShoppingCardAndPurchasePage implements OnInit {
   ) {}
 
   ngOnInit() {}
+
   ionViewWillEnter() {
     this.orderPayService.getAllOrdersUser();
     this.orderPayService.orderEmitter.subscribe((orders) => {
       this.orders = orders;
     });
-    console.log(this.orders);
+    // console.log(this.orders);
     this.orderPayService.paymentOk.subscribe((ok) => (this.paymentStatus = ok));
   }
 

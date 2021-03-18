@@ -24,16 +24,18 @@ export class PackagePageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     let packageId = this.route.snapshot.params['pid'];
-    // this.thePackage = this.packagesService.returnPackageById(packageId);
-    // this.packagesService.returnPackageById(packageId).subscribe((pack) => {
-    //   this.thePackage = pack;
-    // });
+    console.log(packageId);
 
     this.packagesService.returnPackageById(packageId).then((p) => {
       this.thePackage = p;
     });
+    console.log(this.thePackage);
     for (let bId of this.thePackage.bookIdArray) {
-      this.bookService.returnBookById(bId).subscribe((book) => {
+      new Promise((resolve, reject) => {
+        this.bookService.returnBookById(bId).subscribe((book) => {
+          resolve(book);
+        });
+      }).then((book: Book) => {
         this.booksInPack.push(book);
       });
     }

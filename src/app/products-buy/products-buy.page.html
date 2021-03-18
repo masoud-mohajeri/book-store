@@ -11,7 +11,7 @@
   <div>
     <section id="slides">
       <ion-slides mode="ios" pager="ios" [options]="slideOpts">
-        <ion-slide *ngFor="let package of packages;let i =index">
+        <ion-slide *ngFor="let package of packagesObs|async;let i =index">
           <app-package-card [package]="package"></app-package-card>
         </ion-slide>
       </ion-slides>
@@ -33,5 +33,4 @@
       </pagination-controls>
     </section>
   </div>
-
 </ion-content>
