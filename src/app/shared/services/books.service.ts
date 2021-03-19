@@ -42,10 +42,15 @@ export class BookService {
       .valueChanges({ idField: 'id' });
   }
 
-
-
   returnBookById(id: string) {
-    return this.afs.doc<Book>('Book/' + id).valueChanges({ idFeild: 'id' });
+    return this.afs.doc<Book>('Book/' + id).valueChanges({ idField: 'id' });
+  }
+
+  promiseBookById(id: string) {
+    return this.afs
+      .doc<Book>('Book/' + id)
+      .valueChanges({ idFeild: 'id' })
+      .toPromise();
   }
 
   saveChanges(book: Book, id: string) {

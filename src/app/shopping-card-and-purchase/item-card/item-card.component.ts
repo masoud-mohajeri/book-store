@@ -13,6 +13,7 @@ import { ShCardService } from 'src/app/shared/services/shcard.service';
 export class ItemCardComponent implements OnInit {
   @Input() order: Order;
   book: Book;
+  needSpinner = true;
   constructor(
     private bookService: BookService,
     private orderPayService: OrderPaymentService,
@@ -20,14 +21,24 @@ export class ItemCardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.book = this.bookService.returnBookById(this.order.bookId);
+    new Promise((resolve, reject) => {
+      this.bookService.returnBookById(this.order.bookId).subscribe((aBook) => {
+        resolve(aBook);
+      });
+    }).then((aBook: Book) => {
+      this.book = aBook;
+      // console.log('aBook:Book item order ', aBook);
+      this.needSpinner = false;
+    });
   }
   payThisOrder(count: any) {
-    this.orderPayService.payOrder(this.order.orderId, count);
+    console.log(this.order);
+    this.orderPayService.payOrder(this.order.bookId, count);
     this.shCardService.removeFromCard(this.order.bookId);
   }
   deleteThisOrder() {
-    this.orderPayService.deleteOrder(this.order.orderId);
+    console.log(this.book.id);
+    this.orderPayService.deleteOrder(this.order.bookId);
     this.shCardService.removeFromCard(this.order.bookId);
   }
 }

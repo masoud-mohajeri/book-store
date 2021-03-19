@@ -14,7 +14,9 @@ export class AuthService {
     this.userInfo.next({
       id: '1',
       name: 'masoud',
-      status: 'CUSTOMER',
+      status: 'PUBLISHER',
+      activatedStatus: true,
+      address: ' تسنا بلهسیا  سهخب یلاهبل  اخهبل بسیلی بلی ',
     });
   }
 }

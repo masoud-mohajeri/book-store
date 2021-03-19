@@ -1,46 +1,48 @@
-<section *ngIf="order.status === 'CARD'" style="direction: rtl">
-  <ion-grid fixed>
-    <ion-row>
-      <ion-col size="2">
-        <ion-thumbnail>
-          <img [src]="book.imageUrl" />
-        </ion-thumbnail>
-      </ion-col>
-      <ion-col size="3">
-        {{ book.name }}
-      </ion-col>
-      <ion-col size="2">
-        {{ book.price }}
-      </ion-col>
-      <ion-col size="2">
-        <ion-item>
-          <ion-input
-            #count2
-            
-            [disabled]="order.status !== 'CARD'"
-            #input
-            type="number"
-            color="warning"
-            [value]="order.count"
-            [max]="book.inventory"
-            [min]="1"
-          ></ion-input>
-        </ion-item>
-      </ion-col>
+<ion-spinner *ngIf="needSpinner" name="dots"></ion-spinner>
+<section *ngIf="!needSpinner">
+  <section *ngIf="order.status === 'CARD'" style="direction: rtl">
+    <ion-grid fixed>
+      <ion-row>
+        <ion-col size="2">
+          <ion-thumbnail>
+            <img [src]="book.imageUrl" />
+          </ion-thumbnail>
+        </ion-col>
+        <ion-col size="3">
+          {{ book.name }}
+        </ion-col>
+        <ion-col size="2">
+          {{ book.price }}
+        </ion-col>
+        <ion-col size="2">
+          <ion-item>
+            <ion-input
+              #count2
+              [disabled]="order.status !== 'CARD'"
+              #input
+              type="number"
+              color="warning"
+              [value]="order.count"
+              [max]="book.inventory"
+              [min]="1"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
 
-      <ion-col *ngIf="order.status === 'CARD'" size="3">
-        <ion-button
-          [disabled]="input.value > book.inventory"
-          (click)="payThisOrder(count2.value)"
-          fill="outline"
-          color="success"
-        >
-          پرداخت
-        </ion-button>
-        <ion-button (click)="deleteThisOrder()" fill="outline" color="danger">
-          حذف
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+        <ion-col *ngIf="order.status === 'CARD'" size="3">
+          <ion-button
+            [disabled]="input.value > book.inventory"
+            (click)="payThisOrder(count2.value)"
+            fill="outline"
+            color="success"
+          >
+            پرداخت
+          </ion-button>
+          <ion-button (click)="deleteThisOrder()" fill="outline" color="danger">
+            حذف
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
 </section>

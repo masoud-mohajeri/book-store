@@ -14,6 +14,7 @@ export class OrdersComponent implements OnInit {
   @Input() order: Order;
   theBook: Book;
   postForm: FormGroup;
+  needSpinner = true;
   constructor(
     private bookService: BookService,
     private orderPaymentService: OrderPaymentService
@@ -27,13 +28,19 @@ export class OrdersComponent implements OnInit {
         Validators.minLength(4),
       ]),
     });
-    this.bookService.returnBookById(this.order.bookId).subscribe((book) => {
+    new Promise((resolve, reject) => {
+      this.bookService.returnBookById(this.order.bookId).subscribe((book) => {
+        resolve(book);
+      });
+    }).then((book: Book) => {
       this.theBook = book;
+      this.needSpinner = false;
     });
   }
   sendBook() {
+    console.log(this.order.id);
     this.orderPaymentService.sendPaiedOrder(
-      this.order.orderId,
+      this.order.id,
       this.postForm.value.postId
     );
   }

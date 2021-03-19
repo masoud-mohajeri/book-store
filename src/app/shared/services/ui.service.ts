@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UIService {
-  needSpinner = new BehaviorSubject<boolean>(false);
+  needSpinner = new BehaviorSubject<boolean>(null);
 
   constructor(public toastController: ToastController) {}
 

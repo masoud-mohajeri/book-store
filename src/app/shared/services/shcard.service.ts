@@ -19,7 +19,6 @@ export class ShCardService {
       }
     }
     this.cardList = ret_arr;
-    console.log(this.cardList);
     this.cardListEmitter.next(this.cardList);
   }
 

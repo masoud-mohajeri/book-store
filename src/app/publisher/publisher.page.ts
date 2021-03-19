@@ -40,7 +40,7 @@ export class PublisherPage implements OnInit {
       }
     );
 
-    this.orderPaymentService.getPublisherOrder().subscribe((orders) => {
+    this.orderPaymentService.getPublisherOrder().then((orders: Order[]) => {
       this.orders = orders;
     });
     this.authService.userInfo.subscribe((info) => {

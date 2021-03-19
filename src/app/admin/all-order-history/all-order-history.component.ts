@@ -26,7 +26,7 @@ export class AllOrderHistoryComponent implements OnInit {
       this.book = book;
     });
     this.publisher = this.publisherService.returnPublisherById(
-      this.order.publisherId
+      this.order.publisher
     );
   }
 }

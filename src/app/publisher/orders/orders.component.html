@@ -1,4 +1,5 @@
-<ion-item style="direction: rtl">
+<ion-spinner *ngIf="needSpinner" name="dots"></ion-spinner>
+<ion-item *ngIf="!needSpinner" style="direction: rtl">
   <ion-grid fixed>
     <ion-row style="direction: rtl">
       <ion-col size="6">

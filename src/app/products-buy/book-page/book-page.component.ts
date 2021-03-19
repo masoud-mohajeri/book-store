@@ -12,6 +12,7 @@ import { ShCardService } from 'src/app/shared/services/shcard.service';
 export class BookPageComponent implements OnInit {
   title: string;
   book: Book;
+  pageSpinner = true;
   constructor(
     private route: ActivatedRoute,
     private bookService: BookService,
@@ -22,6 +23,7 @@ export class BookPageComponent implements OnInit {
     let id = this.route.snapshot.params['id'];
     this.bookService.returnBookById(id).subscribe((book) => {
       this.book = book;
+      this.pageSpinner = false;
     });
   }
 

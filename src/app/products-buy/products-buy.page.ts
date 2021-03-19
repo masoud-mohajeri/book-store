@@ -45,7 +45,7 @@ export class ProductsBuyPage implements OnInit, OnDestroy {
         
       });
     });
-    console.log(this.packages);
+    // console.log(this.packages);
   }
   ngOnDestroy() {
     this.subs.forEach((sub) => sub.unsubscribe());

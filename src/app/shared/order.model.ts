@@ -1,10 +1,12 @@
 export interface Order {
-  orderId: string;
+  orderId?: string;
   bookId: string;
   count: number;
   customerAssredd?: string;
-  publisherId: string;
+  publisher: string;
   status: 'CARD' | 'PAIED' | 'SENT';
   postId?: number;
   paymentDate?: number;
+  customeName?: string;
+  id?: string;
 }
