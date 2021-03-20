@@ -3,7 +3,7 @@
     <!-- <ion-buttons fxHide.lt-md slot="end">
       <ion-menu-button menu="home"></ion-menu-button>
     </ion-buttons> -->
-    <ion-title slot="end">ادمین  </ion-title>
+    <ion-title slot="end">ادمین </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -37,12 +37,22 @@
     <app-offers></app-offers>
   </section>
   <section *ngIf="pageState==='sale-report'">
-    <section>
+    <ion-spinner *ngIf="needSpinner" name="dots"></ion-spinner>
+    <section *ngIf="!needSpinner">
       <app-all-order-history
-      *ngFor="let order of orders"
-      [order]="order"
+        *ngFor="let order of orders  | paginate: { itemsPerPage: 24, currentPage: paginationP }"
+        [order]="order"
       ></app-all-order-history>
     </section>
-    
+    <section style="display: flex; justify-content: center">
+      <pagination-controls
+        (pageChange)="paginationP = $event"
+        previousLabel=" "
+        nextLabel=" "
+        [autoHide]="true"
+        [responsive]="true"
+      >
+      </pagination-controls>
+    </section>
   </section>
 </ion-content>

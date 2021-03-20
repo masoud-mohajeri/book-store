@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Order } from '../shared/order.model';
+import { AuthService } from '../shared/services/auth.service';
 import { OrderPaymentService } from '../shared/services/orderPayment.service';
+import { User } from '../shared/user.model';
 
 @Component({
   selector: 'app-customer',
@@ -11,17 +13,33 @@ import { OrderPaymentService } from '../shared/services/orderPayment.service';
 export class CustomerPage implements OnInit {
   addressForm: FormGroup;
   orders: Order[] = [];
-  constructor(private orderPaymentService: OrderPaymentService) {}
+  needSpinner = true;
+  User: User = null;
+  constructor(
+    private orderPaymentService: OrderPaymentService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
-    this.addressForm = new FormGroup({
-      address: new FormControl(null),
+    this.authService.userInfo.subscribe((u) => {
+      this.User = u;
     });
-    this.orderPaymentService.orderEmitter.subscribe((theOrders) => {
-      this.orders = theOrders;
+    this.addressForm = new FormGroup({
+      address: new FormControl(this.User?.address, Validators.required),
+    });
+  }
+  ionViewWillEnter() {
+    new Promise((resolve, reject) => {
+      this.orderPaymentService.getPaiedOrdersUser().subscribe((ol) => {
+        resolve(ol);
+      });
+    }).then((ol: Order[]) => {
+      this.orders = ol;
+      console.log(ol);
+      this.needSpinner = false;
     });
   }
   saveNewAddress() {
-    console.log(this.addressForm.value);
+    this.authService.saveAddress(this.addressForm.value);
   }
 }

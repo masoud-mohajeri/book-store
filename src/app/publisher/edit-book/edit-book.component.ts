@@ -38,12 +38,11 @@ export class EditBookComponent implements OnInit {
   }
   onSave() {
     if (this.bookForm.value !== this.bookObj) {
-      console.log(this.book.id);
-      this.bookService.saveChanges(this.bookForm.value,this.book.id);
+      this.bookService.saveChanges(this.bookForm.value, this.book.id);
       this.expandCollaps();
     }
   }
-  onDeleteBook(){
-    console.log(this.book.id)
+  onDeleteBook() {
+    this.bookService.deleteBook(this.book.id);
   }
 }

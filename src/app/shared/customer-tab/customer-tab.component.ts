@@ -23,4 +23,7 @@ export class CustomerTabComponent implements OnInit {
       this.badgeNumber = shCardList.length;
     });
   }
+  onLogout() {
+    this.authService.logOut();
+  }
 }

@@ -11,11 +11,17 @@ import { BookService } from 'src/app/shared/services/books.service';
 export class OrderHistoryComponent implements OnInit {
   @Input() order: Order;
   book: Book;
+  needSpinner = true;
   constructor(private bookService: BookService) {}
 
   ngOnInit() {
-    this.bookService.returnBookById(this.order.bookId).subscribe((book) => {
-      this.book = book;
+    new Promise((resolve, reject) => {
+      this.bookService.returnBookById(this.order.bookId).subscribe((book) => {
+        resolve(book);
+      });
+    }).then((b: Book) => {
+      this.book = b;
+      this.needSpinner = false;
     });
   }
 }

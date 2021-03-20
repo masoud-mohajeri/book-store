@@ -14,7 +14,7 @@ import { User } from 'src/app/shared/user.model';
 export class AllOrderHistoryComponent implements OnInit {
   @Input() order: Order;
   book: Book;
-  publisher: User;
+  needSpinner = true;
   constructor(
     private publisherService: PublishersService,
     private booksService: BookService,
@@ -22,11 +22,14 @@ export class AllOrderHistoryComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.booksService.returnBookById(this.order.bookId).subscribe((book) => {
+    // console.log(this.order);
+    new Promise((resolve, reject) => {
+      this.booksService.returnBookById(this.order.bookId).subscribe((book) => {
+        resolve(book);
+      });
+    }).then((book: Book) => {
       this.book = book;
+      this.needSpinner = false;
     });
-    this.publisher = this.publisherService.returnPublisherById(
-      this.order.publisher
-    );
   }
 }

@@ -12,9 +12,7 @@ export class PublishersService {
   constructor(private afs: AngularFirestore, private uiService: UIService) {}
 
   getAllPublishers() {
-    return this.afs
-      .collection<User>('User')
-      .valueChanges({ idField: 'id' });
+    return this.afs.collection<User>('User').valueChanges({ idField: 'id' });
   }
 
   changePublisherStatus(status: boolean, pubId: string) {
@@ -34,8 +32,13 @@ export class PublishersService {
       });
   }
 
-  returnPublisherById(id: string) {
-    let theId = this.publishers.findIndex((pub) => pub.id === id);
-    return this.publishers[theId];
+  returnPublisherById(pub: string) {
+    // let theId = this.publishers.findIndex((pub) => pub.id === id);
+    // return this.publishers[theId];
+    return this.afs
+      .collection<User>('User', (ref) =>
+        ref.where('name', '==', pub).where('status', '==', 'Publisher')
+      )
+      .valueChanges();
   }
 }

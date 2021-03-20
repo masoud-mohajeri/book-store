@@ -30,13 +30,9 @@ export class AuthPage implements OnInit {
       { validators: this.checkPasswords }
     );
     this.loginForm = new FormGroup({
-      email: new FormControl(null),
-      password: new FormControl(null),
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, Validators.required),
     });
-    // this.loginForm = new FormGroup({
-    //   email: new FormControl(null, [Validators.required, Validators.email]),
-    //   password: new FormControl(null, Validators.required),
-    // });
   }
   segmentChanged(value: any) {
     this.formStatus = value.detail.value;
@@ -49,10 +45,12 @@ export class AuthPage implements OnInit {
   }
 
   onSignup() {
-    console.log(this.signupForm);
+    this.authService.signUp(this.signupForm.value);
   }
   onLogin() {
-    this.authService.login('a', 1);
-    this.router.navigate(['/']);
+    this.authService.login(
+      this.loginForm.value.email,
+      this.loginForm.value.password
+    );
   }
 }

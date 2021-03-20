@@ -8,7 +8,6 @@
 </ion-header>
 
 <ion-content>
-
   <ion-grid fixed>
     <ion-row style="direction: rtl">
       <h2>تغییر آدرس 🏠</h2>
@@ -27,16 +26,17 @@
     <ion-row style="direction: rtl">
       <h2>پیگیری سفارش ها 📦</h2>
       <ion-col size="12">
-        <app-order-history
-          *ngFor="let order of orders"
-          [order]="order"
-        ></app-order-history>
+        <ion-spinner *ngIf="needSpinner" name="dots"></ion-spinner>
+        <section *ngIf="!needSpinner">
+          <app-order-history
+            *ngFor="let order of orders"
+            [order]="order"
+          ></app-order-history>
+        </section>
 
-        <section
-        *ngIf="orders.length==0"
-        >
-      <h4> شما هیج سفارشی نداشته اید. </h4>
-      </section>
+        <section *ngIf="orders.length==0">
+          <h4>شما هیج سفارشی نداشته اید.</h4>
+        </section>
       </ion-col>
     </ion-row>
   </ion-grid>

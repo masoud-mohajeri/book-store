@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Order } from '../shared/order.model';
 import { OrderPaymentService } from '../shared/services/orderPayment.service';
 import { PublishersService } from '../shared/services/publishers.service';
@@ -15,7 +15,10 @@ export class AdminPage implements OnInit, OnDestroy {
   pageState = 'offers';
   subscriptions: Subscription[] = [];
   publishers: User[];
-  orders: Order[];
+  needSpinner = true;
+  orders: Order[] = [];
+  paginationP = 1;
+  // orders;
   constructor(
     private publishersService: PublishersService,
     private orderPayService: OrderPaymentService,
@@ -35,8 +38,14 @@ export class AdminPage implements OnInit, OnDestroy {
       )
     );
 
-    this.orderPayService.getAllOrders().subscribe((allOrders) => {
-      this.orders = allOrders;
+    new Promise((resolve, reject) => {
+      this.orderPayService.getAllOrders().subscribe((order: Order[]) => {
+        resolve(order);
+      });
+    }).then((order: Order[]) => {
+      // console.log(order);
+      this.orders = order;
+      this.needSpinner = false;
     });
   }
 

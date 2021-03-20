@@ -15,6 +15,7 @@ export class OrdersComponent implements OnInit {
   theBook: Book;
   postForm: FormGroup;
   needSpinner = true;
+  classDispaly = true;
   constructor(
     private bookService: BookService,
     private orderPaymentService: OrderPaymentService
@@ -39,9 +40,15 @@ export class OrdersComponent implements OnInit {
   }
   sendBook() {
     console.log(this.order.id);
-    this.orderPaymentService.sendPaiedOrder(
-      this.order.id,
-      this.postForm.value.postId
-    );
+    this.orderPaymentService
+      .sendPaiedOrder(this.order.id, this.postForm.value.postId)
+      .then(() => {
+        console.log('order sent successfully');
+        this.classDispaly = false;
+      })
+      .catch((res) => {
+        console.log('couldnt send order  ');
+        console.log(res);
+      });
   }
 }

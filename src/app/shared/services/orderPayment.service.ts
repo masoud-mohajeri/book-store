@@ -121,20 +121,31 @@ export class OrderPaymentService {
   }
 
   sendPaiedOrder(orderId: string, postId: number) {
-    this.afs
+    return this.afs
       .doc<Order>('Orders/' + orderId)
-      .update({ status: 'SENT', postId: postId, paymentDate: Date.now() })
-      .then(() => {
-        console.log('order sent successfully');
-      })
-      .catch((res) => {
-        console.log('couldnt send order  ');
-        console.log(res);
-      });
+      .update({ status: 'SENT', postId: postId, paymentDate: Date.now() });
   }
 
   getAllOrders() {
-    this.orderEmitter.next(this.orders);
-    return this.orderEmitter;
+    this.afs
+      .collection('Orders')
+      .valueChanges()
+      .subscribe((O: Order[]) => {
+        this.orderEmitter.next(O);
+      });
+
+    // return this.orderEmitter;
+    return this.afs.collection('Orders').valueChanges();
+  }
+
+  getPaiedOrdersUser() {
+    this.authService.userInfo.subscribe((user) => {
+      this.user = user;
+    });
+    return this.afs
+      .collection<Order>('Orders', (ref) =>
+        ref.where('customeName', '==', this.user.name)
+      )
+      .valueChanges();
   }
 }

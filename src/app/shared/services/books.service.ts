@@ -67,9 +67,18 @@ export class BookService {
       });
     // this.books[id] = book;
   }
-  // deleteBook(id){
-
-  // }
+  deleteBook(id: string) {
+    this.afs
+      .doc<Book>('Book/' + id)
+      .delete()
+      .then(() => {
+        console.log('book is deleted successfully');
+      })
+      .catch((err) => {
+        console.log('book is not deleted ');
+        console.log(err);
+      });
+  }
 
   addBook(book: Book) {
     // this.books.push(book);

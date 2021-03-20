@@ -22,6 +22,7 @@ import { AllOrderHistoryComponent } from './all-order-history/all-order-history.
     AdminPageRoutingModule,
     NgxPaginationModule,
     ReactiveFormsModule,
+    NgxPaginationModule
   ],
   declarations: [
     AdminPage,

@@ -21,8 +21,7 @@ export class BookCardComponent implements OnInit {
   goToBook() {
     this.router.navigate(['/products-buy', 'book', this.book.id]);
   }
-  addToCard(){
+  addToCard() {
     this.scService.addToCard(this.book.id);
   }
-
 }
