@@ -14,11 +14,14 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { environment } from '../environments/environment';
 
+import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
+import { ServiceWorkerModule } from '@angular/service-worker';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     IonicModule.forRoot(),
     AppRoutingModule,
     SharedModule,
@@ -26,6 +29,8 @@ import { environment } from '../environments/environment';
     AngularFireStorageModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
+    ModuleMapLoaderModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

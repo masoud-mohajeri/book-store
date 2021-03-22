@@ -24,10 +24,10 @@ npm-debug.log*
 /.versions
 /.vscode
 /coverage
-/dist
+# /dist
 /node_modules
 /platforms
 /plugins
-/www
+# /www
 /.VSCodeCounter
 .VSCodeCounter/
