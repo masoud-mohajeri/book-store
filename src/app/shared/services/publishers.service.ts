@@ -12,7 +12,9 @@ export class PublishersService {
   constructor(private afs: AngularFirestore, private uiService: UIService) {}
 
   getAllPublishers() {
-    return this.afs.collection<User>('User').valueChanges({ idField: 'id' });
+    return this.afs
+      .collection<User>('User', (ref) => ref.where('status', '==', 'PUBLISHER'))
+      .valueChanges({ idField: 'id' });
   }
 
   changePublisherStatus(status: boolean, pubId: string) {

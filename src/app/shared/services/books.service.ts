@@ -49,7 +49,7 @@ export class BookService {
   promiseBookById(id: string) {
     return this.afs
       .doc<Book>('Book/' + id)
-      .valueChanges({ idFeild: 'id' })
+      .valueChanges({ idField: 'id' })
       .toPromise();
   }
 

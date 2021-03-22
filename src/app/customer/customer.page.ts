@@ -40,6 +40,6 @@ export class CustomerPage implements OnInit {
     });
   }
   saveNewAddress() {
-    this.authService.saveAddress(this.addressForm.value);
+    this.authService.saveAddress(this.addressForm.value.address);
   }
 }

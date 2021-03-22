@@ -6,6 +6,7 @@ import { LoadingController } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../user.model';
 import { UIService } from './ui.service';
+import { take } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -22,35 +23,39 @@ export class AuthService {
   ) {}
 
   login(email: string, password: string) {
-    this.loadingController
-      .create({ message: 'لطفا کمی صبر کنید ' })
-      .then((loadingEl) => {
-        loadingEl.present();
-        this.afAuth
-          .signInWithEmailAndPassword(email, password)
-          .then(() => {
-            new Promise((resolve, reject) => {
-              this.afs
-                .collection<User>('User', (ref) =>
-                  ref.where('email', '==', email)
-                )
-                .valueChanges()
-                .subscribe((user) => {
-                  resolve(user);
-                });
-            }).then((user: User) => {
-              this.userInfo.next(user);
-              this.isAuth.next(true);
+    return new Promise((resolve, reject) => {
+      this.loadingController
+        .create({ message: 'لطفا کمی صبر کنید ' })
+        .then((loadingEl) => {
+          loadingEl.present();
+          this.afAuth
+            .signInWithEmailAndPassword(email, password)
+            .then(() => {
+              new Promise((resolve, reject) => {
+                this.afs
+                  .collection<User>('User', (ref) =>
+                    ref.where('email', '==', email)
+                  )
+                  .valueChanges({ idField: 'id' })
+                  .subscribe((user) => {
+                    resolve(user[0]);
+                  });
+              }).then((user: User) => {
+                // console.log(user);
+                this.userInfo.next(user);
+                this.isAuth.next(true);
+                loadingEl.dismiss();
+                this.uiService.presentToast('خوش آمدید ');
+                resolve(user);
+              });
+            })
+            .catch((err) => {
               loadingEl.dismiss();
-              this.uiService.presentToast('خوش آمدید ');
+              this.uiService.presentToast(err);
+              console.error(err);
             });
-          })
-          .catch((err) => {
-            loadingEl.dismiss();
-            this.uiService.presentToast(err);
-            console.error(err);
-          });
-      });
+        });
+    });
   }
 
   signUp(signupInfo) {
@@ -79,11 +84,22 @@ export class AuthService {
                   resolve('success');
                 });
             }).then(() => {
-              this.userInfo.next(newUser);
-              this.isAuth.next(true);
-              loadingEl.dismiss();
-              this.uiService.presentToast('کاربر با موفقیت ثبت شد ');
-              this.router.navigate(['']);
+              new Promise((resolve, reject) => {
+                this.afs
+                  .collection<User>('User', (ref) =>
+                    ref.where('email', '==', newUser.email)
+                  )
+                  .valueChanges({ idField: 'id' })
+                  .subscribe((user) => {
+                    resolve(user[0]);
+                  });
+              }).then((user: User) => {
+                this.userInfo.next(user);
+                this.isAuth.next(true);
+                loadingEl.dismiss();
+                this.uiService.presentToast('کاربر با موفقیت ثبت شد ');
+                this.router.navigate(['']);
+              });
             });
           })
           .catch((err) => {
@@ -103,6 +119,21 @@ export class AuthService {
   }
 
   saveAddress(address: string) {
-    console.log(address);
+    let theUser: User = null;
+    this.userInfo.subscribe((user: User) => {
+      theUser = user;
+    });
+
+    this.afs
+      .doc<User>('User/' + theUser.id)
+      .update({ address: address })
+      .then(() => {
+        this.uiService.presentToast('آدرس با موفقیت تغییر کرد ');
+      })
+      .catch(() => {
+        this.uiService.presentToast(
+          'تغییر آدرس موفقیت آمیز نبود ، لطفا دوباره امتحان کنید '
+        );
+      });
   }
 }

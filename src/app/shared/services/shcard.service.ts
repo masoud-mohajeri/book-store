@@ -28,6 +28,6 @@ export class ShCardService {
     const theId = this.cardList.findIndex((item) => item === id);
     this.cardList.splice(theId, 1);
     this.cardListEmitter.next(this.cardList);
-    this.uiService.presentToast('کالا از سبد خرید حذف شد ');
+    // this.uiService.presentToast('کالا از سبد خرید حذف شد ');
   }
 }

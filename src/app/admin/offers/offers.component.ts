@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { LoadingController } from '@ionic/angular';
 import { Observable, Subscription } from 'rxjs';
 import { Book } from 'src/app/shared/book.model';
 import { Package } from 'src/app/shared/package.model';
@@ -26,7 +27,8 @@ export class OffersComponent implements OnInit, OnDestroy {
   constructor(
     private packagesService: PackagesService,
     private bookService: BookService,
-    private uiService: UIService
+    private uiService: UIService,
+    private loadingController: LoadingController
   ) {}
 
   ngOnInit() {
@@ -64,23 +66,31 @@ export class OffersComponent implements OnInit, OnDestroy {
   }
 
   editPack(pid: string) {
-    this.editMode = true;
-    this.packagesService
-      .returnPackageById(pid)
-      .then((p: Package) => {
-        this.onEditPackage = p;
-        // console.log(this.onEditPackage);
-        this.packageForm.setValue({
-          id: this.onEditPackage.id,
-          name: this.onEditPackage.name,
-          imageUrl: this.onEditPackage.imageUrl,
-          bookIdArray: this.onEditPackage.bookIdArray,
-          description: this.onEditPackage.description,
-        });
-      })
-      .catch((err) => {
-        // console.log('err');
-        throw new Error(err);
+    this.loadingController
+      .create({ message: 'لطفا کمی صبر کنید' })
+      .then((wel) => {
+        wel.present();
+
+        this.editMode = true;
+        this.packagesService
+          .returnPackageById(pid)
+          .then((p: Package) => {
+            this.onEditPackage = p;
+            // console.log(this.onEditPackage);
+            this.packageForm.setValue({
+              id: this.onEditPackage.id,
+              name: this.onEditPackage.name,
+              imageUrl: this.onEditPackage.imageUrl,
+              bookIdArray: this.onEditPackage.bookIdArray,
+              description: this.onEditPackage.description,
+            });
+            wel.dismiss();
+          })
+          .catch((err) => {
+            wel.dismiss();
+            // console.log('err');
+            throw new Error(err);
+          });
       });
   }
 
@@ -96,17 +106,25 @@ export class OffersComponent implements OnInit, OnDestroy {
   }
 
   onAddButton() {
-    this.packagesService
-      .uploadImage(this.imageEvent, this.packageForm.value.name)
-      .then((url) => {
-        this.packageForm.patchValue({ imageUrl: url });
-        this.packagesService.addPackage(this.packageForm.value);
-        this.uiService.presentToast('عکس با موفقیت اپلود شد ');
-        this.onClearButton();
-      })
-      .catch((err) => {
-        this.uiService.presentToast('عکس با موفقیت اپلود نشد ');
-        throw new Error(err);
+    this.loadingController
+      .create({ message: 'لطفا کمی صبر کنید' })
+      .then((wel) => {
+        wel.present();
+
+        this.packagesService
+          .uploadImage(this.imageEvent, this.packageForm.value.name)
+          .then((url) => {
+            this.packageForm.patchValue({ imageUrl: url });
+            this.packagesService.addPackage(this.packageForm.value);
+            this.uiService.presentToast('عکس با موفقیت اپلود شد ');
+            this.onClearButton();
+            wel.dismiss();
+          })
+          .catch((err) => {
+            this.uiService.presentToast('عکس با موفقیت اپلود نشد ');
+            wel.dismiss();
+            throw new Error(err);
+          });
       });
   }
 

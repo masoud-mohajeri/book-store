@@ -1,49 +1,89 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <!-- <ion-buttons fxHide.lt-md slot="end">
-      <ion-menu-button menu="home"></ion-menu-button>
-    </ion-buttons> -->
     <ion-title slot="end">کتاب فروشی 🏪</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <!-- <ion-tabs>
-    <ion-tab-bar slot="buttom">
-      <ion-tab-button *ngIf="!user?.status " [routerLink]="['/login']">
-        <ion-icon name="map"></ion-icon>
-        <ion-label>ورود</ion-label>
-      </ion-tab-button>
+  <section class="slises-class">
+    <ion-slides pager="true">
+      <ion-slide>
+        <section>
+          <img src="../../assets/imgs/angular.png" alt="" />
+        </section>
+        <div>
+          <h2>سلام</h2>
+          <p>
+            این فروشگاه یک نمونه کار پروژه انگولار و آیونیک ، نوشته شده توسط
+            مسعود مهاجری است
+            <br />
+            لطفا ورق بزنید 👉
+          </p>
+        </div>
+      </ion-slide>
 
-      <ion-tab-button
-        *ngIf="user?.status ==='CUSTOMER'"
-        [routerLink]="['/customer']"
-      >
-        <ion-icon name="information-circle"></ion-icon>
-        <ion-label>پنل کاربری</ion-label>
-      </ion-tab-button>
-      <ion-tab-button *ngIf="user?.status ==='ADMIN'" [routerLink]="['/admin']">
-        <ion-icon name="information-circle"></ion-icon>
-        <ion-label>پنل ادمین</ion-label>
-      </ion-tab-button>
-      <ion-tab-button
-        *ngIf="user?.status ==='PUBLISHER'"
-        [routerLink]="['/publisher']"
-      >
-        <ion-icon name="information-circle"></ion-icon>
-        <ion-label>پنل ناشر</ion-label>
-      </ion-tab-button>
+      <ion-slide>
+        <section>
+          <img src="../../assets/imgs/shop.png" alt="" />
+        </section>
+        <div>
+          <h2>حالا چه امکاناتی داره ؟</h2>
+          <p>
+            اول ناشر ها ثبت نام میکنن و بعد از تایید ادمین میتونن کتاب هاشون رو
+            ثبت کنن برای فروش . اگر مشکلی هم بود میتونن مشخصات کتاب ها رو ادیت
+            کنن و همچنین در پنل ناشر سفارش های اون نشار نشون داده میشه تا ناشر
+            اونا رو بفرسته و کد پیگیری پست رو ثبت کنه تا مشتری بتونه از .ضعیت
+            مرسوله اش با خبر باشه
+          </p>
+        </div>
+      </ion-slide>
 
-      <ion-tab-button [routerLink]="['/products-buy']">
-        <ion-icon name="map"></ion-icon>
-        <ion-label>محصولات</ion-label>
-      </ion-tab-button>
+      <ion-slide>
+        <section>
+          <img src="../../assets/imgs/books.png" alt="" />
+        </section>
+        <div>
+          <h2>متشری</h2>
+          <p>
+            مشتری هم میتونه از بین کتاب ها یی که ناشر ها ثبت کردن و یا مجموعه
+            هایی که ادمین ثبت کرده خرید کنه و وضعیت خرید هاش رو توی پنلش ببینه
+          </p>
+        </div>
+      </ion-slide>
 
-      <ion-tab-button [routerLink]="['/shopping-card']">
-        <ion-icon name="person-circle"></ion-icon>
-        <ion-label>سبد خرید</ion-label>
-        <ion-badge>6</ion-badge>
-      </ion-tab-button>
-    </ion-tab-bar>
-  </ion-tabs> -->
+      <ion-slide>
+        <section>
+          <img src="../../assets/imgs/admin.png" alt="" />
+        </section>
+        <div>
+          <h2>ادمین</h2>
+          <p>
+            ادمین هم به همه ی فعالیت های سایت نظارت داره و وضعیت همه ی سفارش ها
+            رو میبینه
+          </p>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <section>
+          <img src="../../assets/imgs/snap.png" alt="" />
+        </section>
+        <div>
+          <h2>امتحانش کن !</h2>
+          <p>
+            ثبت نام کن و سایت رو امتحان کن ! خوشحال میشم نظرتونو در باره سایت
+            بدونم
+          </p>
+        </div>
+      </ion-slide>
+      <ion-slide>
+        <section>
+          <img src="../../assets/imgs/github.png" alt="" />
+        </section>
+        <div>
+          <h2>به گیت هابم سر بزنید</h2>
+          <ion-button color="dark" (click)="goToGit()"> GitHub </ion-button>
+        </div>
+      </ion-slide>
+    </ion-slides>
+  </section>
 </ion-content>

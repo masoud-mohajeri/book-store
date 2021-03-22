@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
+import { User } from '../shared/user.model';
 
 @Component({
   selector: 'app-auth',
@@ -48,9 +49,12 @@ export class AuthPage implements OnInit {
     this.authService.signUp(this.signupForm.value);
   }
   onLogin() {
-    this.authService.login(
-      this.loginForm.value.email,
-      this.loginForm.value.password
-    );
+    this.authService
+      .login(this.loginForm.value.email, this.loginForm.value.password)
+      .then(() => {
+        console.log('here');
+        this.loginForm.reset();
+        this.router.navigate(['']);
+      });
   }
 }

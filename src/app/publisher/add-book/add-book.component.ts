@@ -33,6 +33,7 @@ export class AddBookComponent implements OnInit {
       inventory: new FormControl(null, Validators.required),
       isbn: new FormControl(null, Validators.required),
       translator: new FormControl(null),
+      author: new FormControl(null),
       publisher: new FormControl(this.Publisher.name, Validators.required),
       pubYear: new FormControl(null, Validators.required),
       gist: new FormControl(null, Validators.required),
