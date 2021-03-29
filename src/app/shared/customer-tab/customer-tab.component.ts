@@ -11,7 +11,7 @@ import { User } from '../user.model';
 })
 export class CustomerTabComponent implements OnInit {
   user: User;
-  status = 'none';
+  // status = 'none';
   badgeNumber = 0;
   isAuth = false;
   constructor(

@@ -31,3 +31,5 @@ npm-debug.log*
 # /www
 /.VSCodeCounter
 .VSCodeCounter/
+# Local Netlify folder
+.netlify

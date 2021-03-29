@@ -24,12 +24,16 @@
       <ion-label>پنل ناشر</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button [routerLink]="['/products-buy']">
+    <ion-tab-button
+    *ngIf="user?.status !== 'PUBLISHER' &&  user?.status !== 'ADMIN'"
+    [routerLink]="['/products-buy']">
       <ion-icon name="book-outline"></ion-icon>
       <ion-label>محصولات</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button [routerLink]="['/shopping-card']">
+    <ion-tab-button
+    *ngIf="user?.status !== 'PUBLISHER' &&  user?.status !== 'ADMIN'"
+    [routerLink]="['/shopping-card']">
       <ion-icon name="cart-outline"></ion-icon>
       <ion-label>سبد خرید</ion-label>
       <ion-badge color="success">{{ badgeNumber }}</ion-badge>

@@ -14,7 +14,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { environment } from '../environments/environment';
 
-import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
+// import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
@@ -29,7 +29,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AngularFireStorageModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
-    ModuleMapLoaderModule,
+    // ModuleMapLoaderModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
