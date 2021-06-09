@@ -12,15 +12,17 @@ import { PackagesService } from '../shared/services/package.service';
 })
 export class ProductsBuyPage implements OnInit, OnDestroy {
   books: Book[];
+  packages: Package[];
+
   subs: Subscription[] = [];
+  packagesObs: Observable<Package[]>;
+  booksObs: Observable<Book[]>;
+
   slideOpts = {
     initialSlide: 1,
     slidesPerView: Math.round(window.innerWidth / 275),
     speed: 400,
   };
-  packages: Package[];
-  packagesObs: Observable<Package[]>;
-  booksObs: Observable<Book[]>;
 
   paginationP = 1;
   constructor(
@@ -34,18 +36,18 @@ export class ProductsBuyPage implements OnInit, OnDestroy {
         this.books = bookArray;
       })
     );
+
     this.subs.push(
       this.packagesService.getAllPackages().subscribe((packages) => {
         this.packages = packages;
       })
     );
-    this.packagesObs =  new Observable<Package[]>((Packageo) => {
+
+    this.packagesObs = new Observable<Package[]>((Packageo) => {
       this.packagesService.getAllPackages().subscribe((packages) => {
         Packageo.next(packages);
-        
       });
     });
-    // console.log(this.packages);
   }
   ngOnDestroy() {
     this.subs.forEach((sub) => sub.unsubscribe());

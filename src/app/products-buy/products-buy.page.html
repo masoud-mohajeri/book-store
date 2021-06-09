@@ -10,6 +10,7 @@
 <ion-content>
   <div>
     <section id="slides">
+      <ion-spinner *ngIf="!packagesObs" name="circles"></ion-spinner>
       <ion-slides mode="ios" pager="ios" [options]="slideOpts">
         <ion-slide *ngFor="let package of packagesObs|async;let i =index">
           <app-package-card [package]="package"></app-package-card>
@@ -17,6 +18,7 @@
       </ion-slides>
     </section>
     <section class="book-container ion-justify-content-center">
+      <ion-spinner *ngIf="!books" name="circles"></ion-spinner>
       <app-book-card
         *ngFor="let book of books | paginate: { itemsPerPage: 24, currentPage: paginationP }"
         [book]="book"

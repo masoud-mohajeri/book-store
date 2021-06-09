@@ -6,9 +6,10 @@
 ion-slide {
   display: inline;
   width: 310px;
-  height: auto;
+  height: 80vh;
   margin: auto;
   text-align: center;
+  direction: rtl;
   section {
     width: 600px;
     margin: auto;
@@ -21,15 +22,15 @@ ion-slide {
   div {
     width: 600px;
     margin: auto;
-    padding: 25px;
+    padding: 0 25px 25px 25px;
     @media (max-width: 800px) {
       width: 350px;
     }
   }
   img {
     margin: auto;
-    width: 280px;
+    width: auto;
     margin: auto;
-    height: auto;
+    height: 200px;
   }
 }
