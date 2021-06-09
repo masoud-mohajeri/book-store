@@ -1,6 +1,6 @@
 <ion-tabs>
   <ion-tab-bar slot="buttom">
-    <ion-tab-button *ngIf="!user?.status" [routerLink]="['/login']">
+    <ion-tab-button *ngIf="!(user | async)?.status" [routerLink]="['/login']">
       <ion-icon name="log-in-outline"></ion-icon>
       <ion-label>ورود</ion-label>
     </ion-tab-button>
