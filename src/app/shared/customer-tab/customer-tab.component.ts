@@ -10,7 +10,9 @@ import { User } from '../user.model';
   styleUrls: ['./customer-tab.component.scss'],
 })
 export class CustomerTabComponent implements OnInit {
-  user: User;
+  // user: User;
+  user: Observable<User>;
+
   // status = 'none';
   badgeNumber = 0;
   isAuth = false;
@@ -20,9 +22,10 @@ export class CustomerTabComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.authService.userInfo.subscribe((userSub: User) => {
-      this.user = userSub;
-    });
+    // this.authService.userInfo.subscribe((userSub: User) => {
+    //   this.user = userSub;
+    // });
+    this.user = this.authService.userInfo.asObservable();
 
     this.shCardService.cardListEmitter.subscribe((shCardList) => {
       this.badgeNumber = shCardList.length;
@@ -33,7 +36,7 @@ export class CustomerTabComponent implements OnInit {
     this.authService.logOut();
   }
 
-  userLog() {
-    console.log(this.user);
-  }
+  // userLog() {
+  //   console.log(this.user);
+  // }
 }

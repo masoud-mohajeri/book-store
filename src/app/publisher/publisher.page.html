@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title slot="end">{{ userInfo.name}} 🖨️</ion-title>
+    <ion-title slot="end">{{ (userInfo|async).name}} 🖨️</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -16,12 +16,9 @@
       <ion-label>سفارش ها </ion-label>
     </ion-segment-button>
   </ion-segment>
-  <section *ngIf="userInfo.activatedStatus">
+  <section *ngIf=" (userInfo|async).activatedStatus">
     <section *ngIf="pageStatus==='books'">
-      <app-edit-book
-        *ngFor="let book of books;let i=index"
-        [book]="book"
-      >
+      <app-edit-book *ngFor="let book of books;let i=index" [book]="book">
       </app-edit-book>
     </section>
     <section *ngIf="pageStatus==='add-books'">
@@ -40,7 +37,7 @@
       </ion-list>
     </section>
   </section>
-  <section *ngIf="!userInfo.activatedStatus" style="direction: rtl">
+  <section *ngIf="! (userInfo|async).activatedStatus" style="direction: rtl">
     <ion-grid fixed>
       <ion-row>
         <ion-col size="12">

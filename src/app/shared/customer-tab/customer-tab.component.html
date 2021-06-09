@@ -6,18 +6,21 @@
     </ion-tab-button>
 
     <ion-tab-button
-      *ngIf="user?.status === 'CUSTOMER'"
+      *ngIf="(user | async)?.status === 'CUSTOMER'"
       [routerLink]="['/customer']"
     >
       <ion-icon name="person-outline"></ion-icon>
       <ion-label>پنل کاربری</ion-label>
     </ion-tab-button>
-    <ion-tab-button *ngIf="user?.status === 'ADMIN'" [routerLink]="['/admin']">
+    <ion-tab-button
+      *ngIf="(user | async)?.status === 'ADMIN'"
+      [routerLink]="['/admin']"
+    >
       <ion-icon name="person-circle-outline"></ion-icon>
       <ion-label>پنل ادمین</ion-label>
     </ion-tab-button>
     <ion-tab-button
-      *ngIf="user?.status === 'PUBLISHER'"
+      *ngIf="(user | async)?.status === 'PUBLISHER'"
       [routerLink]="['/publisher']"
     >
       <ion-icon name="print-outline"></ion-icon>
@@ -25,21 +28,29 @@
     </ion-tab-button>
 
     <ion-tab-button
-    *ngIf="user?.status !== 'PUBLISHER' &&  user?.status !== 'ADMIN'"
-    [routerLink]="['/products-buy']">
+      *ngIf="
+        (user | async)?.status !== 'PUBLISHER' &&
+        (user | async)?.status !== 'ADMIN'
+      "
+      [routerLink]="['/products-buy']"
+    >
       <ion-icon name="book-outline"></ion-icon>
       <ion-label>محصولات</ion-label>
     </ion-tab-button>
 
     <ion-tab-button
-    *ngIf="user?.status !== 'PUBLISHER' &&  user?.status !== 'ADMIN'"
-    [routerLink]="['/shopping-card']">
+      *ngIf="
+        (user | async)?.status !== 'PUBLISHER' &&
+        (user | async)?.status !== 'ADMIN'
+      "
+      [routerLink]="['/shopping-card']"
+    >
       <ion-icon name="cart-outline"></ion-icon>
       <ion-label>سبد خرید</ion-label>
       <ion-badge color="success">{{ badgeNumber }}</ion-badge>
     </ion-tab-button>
 
-    <ion-tab-button *ngIf="!!user" (click)="onLogout()">
+    <ion-tab-button *ngIf="!!(user | async)" (click)="onLogout()">
       <ion-icon name="log-out-outline"></ion-icon>
       <ion-label>خروج </ion-label>
     </ion-tab-button>

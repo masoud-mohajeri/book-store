@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AuthService } from '../shared/services/auth.service';
 import { User } from '../shared/user.model';
 
@@ -9,7 +10,8 @@ import { User } from '../shared/user.model';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  user: User = null;
+  // user: User = null;
+  user: Observable<User>;
   //
 
   slideOpts = {
@@ -138,9 +140,10 @@ export class HomePage implements OnInit {
 
   constructor(private authService: AuthService) {}
   ngOnInit() {
-    this.authService.userInfo.subscribe((userSub) => {
-      this.user = userSub;
-    });
+    //   this.authService.userInfo.subscribe((userSub) => {
+    //     this.user = userSub;
+    //   });
+    // this.user = this.authService.userInfo.asObservable();
   }
   goToGit() {
     window.location.href = 'https://github.com/mohajerimasoud';

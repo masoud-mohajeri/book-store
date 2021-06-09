@@ -8,6 +8,7 @@ import { OrderPaymentService } from '../shared/services/orderPayment.service';
 import { User } from '../shared/user.model';
 import { map } from 'rxjs/operators';
 import { UIService } from '../shared/services/ui.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-publisher',
@@ -18,7 +19,9 @@ export class PublisherPage implements OnInit {
   books: Book[] = [];
   pageStatus = 'books';
   orders: Order[] = [];
-  userInfo: User;
+  // userInfo: User;
+  userInfo: Observable<User>;
+
   constructor(
     private bookService: BookService,
     private orderPaymentService: OrderPaymentService,
@@ -43,9 +46,10 @@ export class PublisherPage implements OnInit {
     this.orderPaymentService.getPublisherOrder().then((orders: Order[]) => {
       this.orders = orders;
     });
-    this.authService.userInfo.subscribe((info) => {
-      this.userInfo = info;
-    });
+    // this.authService.userInfo.subscribe((info) => {
+    //   this.userInfo = info;
+    // });
+    this.userInfo = this.authService.userInfo.asObservable();
   }
   segmentChanged(value) {
     this.pageStatus = value.detail.value;
